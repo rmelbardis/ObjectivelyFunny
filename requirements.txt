@@ -12,6 +12,8 @@ scikit-learn
 nltk
 matplotlib
 seaborn
+requests
+bs4
 
 # tests/linter
 black
