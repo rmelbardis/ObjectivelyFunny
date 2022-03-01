@@ -30,6 +30,7 @@ google-cloud-storage
 mlflow
 s3fs
 tmdbsimple
+python-dotenv
 
 # utilities
 six>=1.14
@@ -37,4 +38,3 @@ joblib
 memoized-property
 termcolor
 wordcloud
-
