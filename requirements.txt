@@ -32,6 +32,10 @@ s3fs
 tmdbsimple
 python-dotenv
 
+# hosting and front-end
+streamlit
+gtts
+
 # utilities
 six>=1.14
 joblib
