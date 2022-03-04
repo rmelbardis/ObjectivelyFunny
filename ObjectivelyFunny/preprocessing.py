@@ -172,3 +172,21 @@ class WordRemover(BaseEstimator, TransformerMixin):
         if self.stopwords:
             X = X.apply(remove_stopw, args=(stopwords.words('english'),))
         return X
+
+class Lemmatizer(BaseEstimator, TransformerMixin):
+    '''
+    Performs standard lemmatizing on words and removes words
+    '''
+    def __init__(self, word_list, stopwords=True):
+    self.word_list = word_list
+    self.stopwords = stopwords
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        lemmatizer = WordNetLemmatizer()
+        X = X.apply(
+            lambda x: ' '.join(lemmatizer.lemmatize(word) for word in x.split(' ')
+                               if len(lemmatizer.lemmatize(word))>2)
+        return X
