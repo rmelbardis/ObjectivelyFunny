@@ -9,10 +9,10 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class MusicRemover(BaseEstimator, TransformerMixin):
     '''
-    Removes fragments in notes (default '♫♪')
-    pass notes argument as string to function for alternative list
+    Removes fragments in notes list (default ['♫', '♪'])
+    pass notes argument as list to function for alternative list
     '''
-    def __init__(self, notes='♫♪'):
+    def __init__(self, notes=['♫', '♪']):
         self.notes = notes
 
      def fit(self, X, y=None):
@@ -22,6 +22,27 @@ class MusicRemover(BaseEstimator, TransformerMixin):
         for note in self.notes:
             X = X.apply(
             lambda x: re.sub(f'{note}.*?{note}', '', x))
+        return X
+
+class BracketRemover(BaseEstimator, TransformerMixin):
+    '''
+    Removes fragments in [] and () brackets
+    set square=False or round=False to keep one or the other
+    '''
+    def __init__(self, square=True, round=True):
+        self.square = square
+        self.round = round
+
+     def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        if self.square:
+            X = X.apply(
+            lambda x: re.sub('\[.*?\]', '', x))
+        if self.round:
+            X = X.apply(
+            lambda x: re.sub('\(.*?\)', '', x))
         return X
 
 class RegexRemover(BaseEstimator, TransformerMixin):
