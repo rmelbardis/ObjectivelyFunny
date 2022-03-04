@@ -7,7 +7,7 @@ requirements = [x.strip() for x in content if 'git+' not in x]
 
 setup(name='ObjectivelyFunny',
       version="1.0",
-      description="Project Description",
+      description="Data Analysis and Modelling of Stand Up Comedy Scripts",
       packages=find_packages(),
       install_requires=requirements,
       test_suite='tests',
