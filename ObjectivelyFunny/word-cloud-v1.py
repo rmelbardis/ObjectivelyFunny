@@ -22,7 +22,7 @@ class ComedyWordCloud:
         wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
                     stopwords = STOPWORDS, mask=self.mask,
-                    contour_width=15, contour_color=self.color)
+                    contour_width=140, contour_color=self.color)
         word_cloud = wc.generate(selection)
         return word_cloud
 
@@ -123,7 +123,8 @@ class ComedyWordCloud:
         self.plot_cloud(selection)
 
 def color_combo(image):
-    color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple'}
+    color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
+                  '2010.jpg': 'orange', '2000.jpg': 'navy'}
 
     if image in color_dict:
         color = color_dict[image]
@@ -134,21 +135,20 @@ def color_combo(image):
 
     return color
 
-
-
 if __name__ == "__main__":
     # Get and clean data
     df = pd.read_json('../raw_data/fully_stripped_df.json')
     # image = '../images/emoji.png'
     #mask = np.array(Image.open(image))
 
-    image = 'rei_image.png'
+    year = 2000
+    image = f'{year}.jpg'
     mask = np.array(Image.open(f'../images/{image}'))
 
     custom_color = color_combo(image)
     wc = ComedyWordCloud(df, custom_color, mask)
-    
+
     #wc.plot_some_cloud(df, 'artist', 'mae martin')
 
 
-    wc.plot_decade_cloud(df, 2020)
+    wc.plot_decade_cloud(df, year)
