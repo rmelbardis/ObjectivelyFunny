@@ -46,17 +46,42 @@ class BracketRemover(BaseEstimator, TransformerMixin):
         return X
 
 class RegexRemover(BaseEstimator, TransformerMixin):
+    '''
+    Class to remove common regex from comedy transcripts that are not the comedian's words
+    Params:
+    speaker (default=True) - removes ' word: or word word:'
+    ---fill rest out---
+    '''
+    def __init__(self,
+                 speaker=True, subtitles=True, netflix=True,
+                 strong=True, adult=True, air_date=True):
+        self.speaker = speaker
+        self.subtitles = subtitles
+        self.netflix = netflix
+        self.strong = strong
+        self.adult = adult
+        self.air_date = air_date
 
-    def __init__(self, precision=6):
-        self.precision = precision
-
-    def fit(self, X, y=None):
+     def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
-        assert isinstance(X, pd.DataFrame)
-        X['geohash_pickup'] = X.apply(
-            lambda x: gh.encode(x.pickup_latitude, x.pickup_longitude, precision=self.precision), axis=1)
-        X['geohash_dropoff'] = X.apply(
-            lambda x: gh.encode(x.dropoff_latitude, x.dropoff_longitude, precision=self.precision), axis=1)
-        return X[['geohash_pickup', 'geohash_dropoff']]
+        if self.speaker:
+            X = X.apply(
+            lambda x: re.sub('\s[\w-]+( \w+)?:\s', '', x))
+        if self.subtitles:
+            X = X.apply(
+            lambda x: re.sub('subtitle(s)? by .*', '', x))
+        if self.netflix:
+            X = X.apply(
+            lambda x: re.sub('(a)? netflix (original )?(comedy )?(special ?)?', '', x))
+        if self.strong:
+            X = X.apply(
+            lambda x: re.sub('(this )?(programme )?(contains )?(very |some )?strong language( |\.)', '', x))
+        if self.adult:
+            X = X.apply(
+            lambda x: re.sub('adult humou?r( |\.?)?', '', x))
+        if self.air_date:
+            X = X.apply(
+            lambda x: re.sub('(original )?air date', '', x))
+        return X
