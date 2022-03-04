@@ -101,6 +101,18 @@ class LowerCase(BaseEstimator, TransformerMixin):
     def transform(self, X, y=None):
         return X.str.lower()
 
+class NumRemover(BaseEstimator, TransformerMixin):
+    '''
+    Removes digits from text
+    '''
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        X = X.apply(
+            lambda x: ''.join(char for char in x if not char.isdigit()))
+        return X
+
 class Replacer(BaseEstimator, TransformerMixin):
     '''
     Transforms words into other words
