@@ -48,9 +48,14 @@ class BracketRemover(BaseEstimator, TransformerMixin):
 class RegexRemover(BaseEstimator, TransformerMixin):
     '''
     Class to remove common regex from comedy transcripts that are not the comedian's words
-    Params:
-    speaker (default=True) - removes ' word: or word word:'
-    ---fill rest out---
+    Only works on lowercase text
+    Params (all Boolean and default=True):
+    speaker - removes ' word: or word word:'
+    subtitles - removes 'subtitles by ' and everything after up to newline
+    netflix - removes variants of 'a netflix original comedy special'
+    strong - removes variants of 'this programme contains strong language'
+    adult - removes 'adult humour'
+    air_date - removes variants of 'original air date'
     '''
     def __init__(self,
                  speaker=True, subtitles=True, netflix=True,
@@ -84,4 +89,35 @@ class RegexRemover(BaseEstimator, TransformerMixin):
         if self.air_date:
             X = X.apply(
             lambda x: re.sub('(original )?air date', '', x))
+        return X
+
+class LowerCase(BaseEstimator, TransformerMixin):
+    '''
+    Turns text into lowercase text
+    '''
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        return X.str.lower()
+
+class Replacer(BaseEstimator, TransformerMixin):
+    '''
+    Transforms words into other words
+    Takes words as a dictionary of {'new word': [list of 'old words'] / 'old word'}
+    Outputs the text with each set of values replaced by the key
+    '''
+    def __init__(self, words):
+        self.words = words
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        for k, v in self.words.items():
+            if type(v) == str:
+                X = X.str.replace(v, k)
+            elif:
+                for word in v:
+                    X = X.str.replace(word, k)
         return X
