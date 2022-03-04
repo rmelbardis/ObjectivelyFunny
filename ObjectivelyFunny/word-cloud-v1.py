@@ -10,9 +10,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from wordcloud import ImageColorGenerator
 
 class ComedyWordCloud:
-    def __init__(self, df, mask=None):
+    def __init__(self, df, color=None, mask=None):
         self.df = df
         self.mask = mask
+        self.color = color
 
     def generate_wordcloud(self, selection):
         '''
@@ -20,8 +21,8 @@ class ComedyWordCloud:
         '''
         wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
-                    stopwords = STOPWORDS, mask=self.mask)
-        # (contour_width=50, contour_color='steelblue') can be used
+                    stopwords = STOPWORDS, mask=self.mask,
+                    contour_width=15, contour_color=self.color)
         word_cloud = wc.generate(selection)
         return word_cloud
 
@@ -43,7 +44,6 @@ class ComedyWordCloud:
         # No axis details
         plt.axis("off")
         plt.show();
-
 
     def get_index(self, df, option, condition):
         '''
@@ -122,11 +122,33 @@ class ComedyWordCloud:
 
         self.plot_cloud(selection)
 
+def color_combo(image):
+    color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple'}
+
+    if image in color_dict:
+        color = color_dict[image]
+        # for k,v in color_dict.items():
+        #     color = image.replace(k, v)
+    else:
+        color = 'white'
+
+    return color
+
+
+
 if __name__ == "__main__":
     # Get and clean data
     df = pd.read_json('../raw_data/fully_stripped_df.json')
-    mask = np.array(Image.open('../images/emoji.png'))
-    #mask = np.array(Image.open('../images/1960.jpg'))
-    #wc.plot_decade_cloud(df, 1960)
-    wc = ComedyWordCloud(df, mask)
-    wc.plot_some_cloud(df, 'artist', 'mae martin')
+    # image = '../images/emoji.png'
+    #mask = np.array(Image.open(image))
+
+    image = 'rei_image.png'
+    mask = np.array(Image.open(f'../images/{image}'))
+
+    custom_color = color_combo(image)
+    wc = ComedyWordCloud(df, custom_color, mask)
+    
+    #wc.plot_some_cloud(df, 'artist', 'mae martin')
+
+
+    wc.plot_decade_cloud(df, 2020)
