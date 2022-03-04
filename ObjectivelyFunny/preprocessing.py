@@ -104,20 +104,59 @@ class LowerCase(BaseEstimator, TransformerMixin):
 class Replacer(BaseEstimator, TransformerMixin):
     '''
     Transforms words into other words
-    Takes words as a dictionary of {'new word': [list of 'old words'] / 'old word'}
+    Takes word_dict as a dictionary of {'new word': [list of 'old words'] / 'old word'}
     Outputs the text with each set of values replaced by the key
     '''
-    def __init__(self, words):
-        self.words = words
+    def __init__(self, word_dict):
+        self.word_dict = word_dict
 
     def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
-        for k, v in self.words.items():
+        for k, v in self.word_dict.items():
             if type(v) == str:
                 X = X.str.replace(v, k)
             elif:
                 for word in v:
                     X = X.str.replace(word, k)
+        return X
+
+class PuncRemover(BaseEstimator, TransformerMixin):
+    '''
+    Removes punctuation from text
+    Takes chars (default='“”‘’…♪♫¶') as an optional parameter which is added to the standard string.punctuation string.
+    '''
+    def __init__(self, extra_chars='“”‘’…♪♫¶'):
+        self.extra_chars = extra_chars
+        self.punctuation = string.punctuation + self.extra_chars
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        for punc in self.punctuation:
+            X = X.str.replace(punc, '')
+        return X
+
+class WordRemover(BaseEstimator, TransformerMixin):
+    '''
+    Removes words from text
+    Parameters:
+    word_list - list of custom words that need to be removed
+    stopwords - Boolean (default=True) - flag on whether to remove the standard nltk english stopwords list
+    '''
+    def __init__(self, word_list, stopwords=True):
+        self.word_list = word_list
+        self.stopwords = stopwords
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        def remove_stopw(text, _lst):
+            word_tokens = word_tokenize(text)
+            return ' '.join(w for w in word_tokens if not w in _lst)
+        X = X.apply(remove_stopw, args=(self.word_list,))
+        if self.stopwords:
+            X = X.apply(remove_stopw, args=(stopwords.words('english'),))
         return X
