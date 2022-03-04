@@ -20,13 +20,13 @@ class MusicRemover(BaseEstimator, TransformerMixin):
     def __init__(self, notes=['♫', '♪']):
         self.notes = notes
 
-     def fit(self, X, y=None):
+    def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
         for note in self.notes:
-            X = X.apply(
-            lambda x: re.sub(f'{note}.*?{note}', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub(f'{note}.*?{note}', '', str(x)))
         return X
 
 class BracketRemover(BaseEstimator, TransformerMixin):
@@ -43,12 +43,12 @@ class BracketRemover(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         if self.square:
-            X = X.apply(
-            lambda x: re.sub('\[.*?\]', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('\[.*?\]', '', str(x)))
         if self.round:
-            X = X.apply(
-            lambda x: re.sub('\(.*?\)', '', x))
-        return X
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('\(.*?\)', '', str(x)))
+        return pd.DataFrame(X)
 
 class RegexRemover(BaseEstimator, TransformerMixin):
     '''
@@ -72,29 +72,29 @@ class RegexRemover(BaseEstimator, TransformerMixin):
         self.adult = adult
         self.air_date = air_date
 
-     def fit(self, X, y=None):
+    def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
         if self.speaker:
-            X = X.apply(
-            lambda x: re.sub('\s[\w-]+( \w+)?:\s', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('\s[\w-]+( \w+)?:\s', '', str(x)))
         if self.subtitles:
-            X = X.apply(
-            lambda x: re.sub('subtitle(s)? by .*', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('subtitle(s)? by .*', '', str(x)))
         if self.netflix:
-            X = X.apply(
-            lambda x: re.sub('(a)? netflix (original )?(comedy )?(special ?)?', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('(a)? netflix (original )?(comedy )?(special ?)?', '', str(x)))
         if self.strong:
-            X = X.apply(
-            lambda x: re.sub('(this )?(programme )?(contains )?(very |some )?strong language( |\.)', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('(this )?(programme )?(contains )?(very |some )?strong language( |\.)', '', str(x)))
         if self.adult:
-            X = X.apply(
-            lambda x: re.sub('adult humou?r( |\.?)?', '', x))
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('adult humou?r( |\.?)?', '', str(x)))
         if self.air_date:
-            X = X.apply(
-            lambda x: re.sub('(original )?air date', '', x))
-        return X
+            X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: re.sub('(original )?air date', '', str(x)))
+        return pd.DataFrame(X)
 
 class LowerCase(BaseEstimator, TransformerMixin):
     '''
@@ -104,7 +104,8 @@ class LowerCase(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X, y=None):
-        return X.str.lower()
+        X['full_transcript'] = X['full_transcript'].str.lower()
+        return pd.DataFrame(X)
 
 class NumRemover(BaseEstimator, TransformerMixin):
     '''
@@ -114,9 +115,9 @@ class NumRemover(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X, y=None):
-        X = X.apply(
+        X['full_transcript'] = X['full_transcript'].apply(
             lambda x: ''.join(char for char in x if not char.isdigit()))
-        return X
+        return pd.DataFrame(X)
 
 class Tokenizer(BaseEstimator, TransformerMixin):
     '''
@@ -126,14 +127,15 @@ class Tokenizer(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X, y=None):
-        X = X.apply(
+        X['full_transcript'] = X['full_transcript'].apply(
             lambda x: ''.join(char for char in x if not char.isdigit()))
-        return X
+        return pd.DataFrame(X)
 
 class Replacer(BaseEstimator, TransformerMixin):
     '''
     Transforms words into other words
-    Takes word_dict as a dictionary of {'new word': [list of 'old words'] / 'old word'}
+    Takes word_dict as a dictionary of
+    {'new word': [list of 'old words'] / 'old word'}
     Outputs the text with each set of values replaced by the key
     '''
     def __init__(self, word_dict):
@@ -145,11 +147,11 @@ class Replacer(BaseEstimator, TransformerMixin):
     def transform(self, X, y=None):
         for k, v in self.word_dict.items():
             if type(v) == str:
-                X = X.str.replace(v, k)
-            elif:
+                X['full_transcript'] = X['full_transcript'].str.replace(v, k)
+            else:
                 for word in v:
-                    X = X.str.replace(word, k)
-        return X
+                    X['full_transcript'] = X['full_transcript'].str.replace(word, k)
+        return pd.DataFrame(X)
 
 class PuncRemover(BaseEstimator, TransformerMixin):
     '''
@@ -165,7 +167,7 @@ class PuncRemover(BaseEstimator, TransformerMixin):
     def transform(self, X, y=None):
         for punc in self.punctuation:
             X = X.str.replace(punc, '')
-        return X
+        return pd.DataFrame(X)
 
 class WordRemover(BaseEstimator, TransformerMixin):
     '''
@@ -185,25 +187,21 @@ class WordRemover(BaseEstimator, TransformerMixin):
         def remove_stopw(text, _lst):
             word_tokens = word_tokenize(text)
             return ' '.join(w for w in word_tokens if not w in _lst)
-        X = X.apply(remove_stopw, args=(self.word_list,))
+        X['full_transcript'] = X['full_transcript'].apply(remove_stopw, args=(self.word_list,))
         if self.stopwords:
-            X = X.apply(remove_stopw, args=(stopwords.words('english'),))
-        return X
+            X['full_transcript'] = X['full_transcript'].apply(remove_stopw, args=(stopwords.words('english'),))
+        return pd.DataFrame(X)
 
 class Lemmatizer(BaseEstimator, TransformerMixin):
     '''
     Performs standard lemmatizing on words and removes words that are shorter than 3 characters
     '''
-    def __init__(self, word_list, stopwords=True):
-    self.word_list = word_list
-    self.stopwords = stopwords
-
     def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
         lemmatizer = WordNetLemmatizer()
-        X = X.apply(
-            lambda x: ' '.join(lemmatizer.lemmatize(word) for word in x.split(' ')
-                               if len(lemmatizer.lemmatize(word))>2)
-        return X
+        X['full_transcript'] = X['full_transcript'].apply(
+            lambda x: ' '.join(lemmatizer.lemmatize(word) for word in str(x).split(' ')
+                               if len(lemmatizer.lemmatize(word))>2))
+        return pd.DataFrame(X)

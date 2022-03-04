@@ -2,6 +2,7 @@ from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.compose import ColumnTransformer
 
 from ObjectivelyFunny import preprocessing
+import ipdb
 
 def set_pipeline(include_steps,
                 swearing_dict = {
@@ -25,7 +26,7 @@ def set_pipeline(include_steps,
                 'go', 'know', 'host', 'goodnight', 'get', 'gon', 'think', 'say', 'right', 'look',
                 'thing', 'make', 'know', 'want', 'going', 'would', 'could', 'gentlemen', 'let', 'please',
                 'hbo', 'special' 'yes', 'take', 'say', 'got', 'come', 'see', 'really', 'tell',
-                'well', 'give', 'said'])
+                'well', 'give', 'said']):
     '''
     create pipeline for preprocessing
 
@@ -42,17 +43,16 @@ def set_pipeline(include_steps,
             ('numbers', preprocessing.NumRemover()),
             ('uncensor', preprocessing.Replacer(swearing_dict)),
             ('punctuation', preprocessing.PuncRemover()),
-            ('lemmatizer', preprocessing.Lemmatizer),
+            ('lemmatizer', preprocessing.Lemmatizer()),
             ('manual_lemmatizer', preprocessing.Replacer(lemmatizer_dict)),
-            ('remove', preprocessing.WordRemover(dropword_list)),
+            ('remove', preprocessing.WordRemover(dropword_list))
         ]
 
+    incl_blocks = []
     for bloc in blocks:
-            if bloc[0] not in include_steps:
-                blocks.remove(bloc)
+            if bloc[0] in include_steps:
+                incl_blocks.append(bloc)
 
-    preprocessor_pipe = Pipeline(blocks)
-    transformer = ColumnTransformer(('preprocess_full', preprocessor_pipe, 'full_transcript'),
-                                          remainder="drop")
+    pipe = Pipeline(incl_blocks)
 
-    return transformer
+    return pipe
