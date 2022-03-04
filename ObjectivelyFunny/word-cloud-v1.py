@@ -16,18 +16,18 @@ class ComedyWordCloud:
 
     def generate_wordcloud(self, selection):
         '''
-        Initiating a word cloud with
+        Generating a default word cloud
         '''
         wc = WordCloud(width=500, height = 500, background_color='white',
-                    max_words = 150, collocations=False, contour_width=50,
-                    contour_color='steelblue',
+                    max_words = 150, collocations=False,
                     stopwords = STOPWORDS, mask=self.mask)
+        # (contour_width=50, contour_color='steelblue') can be used
         word_cloud = wc.generate(selection)
         return word_cloud
 
     def plot_cloud(self, selection):
         '''
-        plot a word cloud with a selection of text
+        Plot a word cloud with a selection of text
         using a given mask
         '''
         # Generate word cloud and set the size
@@ -84,7 +84,7 @@ class ComedyWordCloud:
 
     def plot_decade_cloud(self, df, decade):
         '''
-        Input a decade as int
+        Input a decade number as int,
         plot a word cloud for that decade
         '''
 
@@ -102,21 +102,22 @@ class ComedyWordCloud:
 
     def plot_some_cloud(self, df, option, condition):
         '''
-        search for index meeting conditions
-        plot a word cloud
+        Search for index meeting conditions
+        Plot a word cloud using selected text
         '''
 
         index = self.get_index(df, option, condition)
-        if index[0] == index[-1]:
+        if len(index) > 1:
             index = index[0]
             selection = df['full_transcript_clean'][index]
+            no_of_transcripts = index[-1]-index[0]+1
         else:
             t = df['full_transcript_clean'][index]
             selection = ' '.join(t)
+            no_of_transcripts = 1
 
-        no_of_transcripts = index[-1]-index[0]+1
-
-        print(f'{no_of_transcripts} transcripts found.')
+        print(f'You selected {condition} as {option}.')
+        print(f'{no_of_transcripts} transcript(s) found.')
         print(f"Plotting with transcripts of {len(selection)} characters...")
 
         self.plot_cloud(selection)
@@ -124,6 +125,8 @@ class ComedyWordCloud:
 if __name__ == "__main__":
     # Get and clean data
     df = pd.read_json('../raw_data/fully_stripped_df.json')
-    mask = np.array(Image.open('../images/1960.jpg'))
+    mask = np.array(Image.open('../images/emoji.png'))
+    #mask = np.array(Image.open('../images/1960.jpg'))
+    #wc.plot_decade_cloud(df, 1960)
     wc = ComedyWordCloud(df, mask)
-    wc.plot_decade_cloud(df, 1960)
+    wc.plot_some_cloud(df, 'artist', 'mae martin')
