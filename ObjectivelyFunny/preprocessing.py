@@ -1,3 +1,4 @@
+# imports
 import string
 import re
 import pandas as pd
@@ -5,6 +6,10 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from sklearn.base import BaseEstimator, TransformerMixin
+
+# nltk downloads
+from nltk import download
+download('punkt')
 
 
 class MusicRemover(BaseEstimator, TransformerMixin):
@@ -33,7 +38,7 @@ class BracketRemover(BaseEstimator, TransformerMixin):
         self.square = square
         self.round = round
 
-     def fit(self, X, y=None):
+    def fit(self, X, y=None):
         return self
 
     def transform(self, X, y=None):
@@ -113,6 +118,18 @@ class NumRemover(BaseEstimator, TransformerMixin):
             lambda x: ''.join(char for char in x if not char.isdigit()))
         return X
 
+class Tokenizer(BaseEstimator, TransformerMixin):
+    '''
+    Applies the word_tokenizer
+    '''
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X, y=None):
+        X = X.apply(
+            lambda x: ''.join(char for char in x if not char.isdigit()))
+        return X
+
 class Replacer(BaseEstimator, TransformerMixin):
     '''
     Transforms words into other words
@@ -175,7 +192,7 @@ class WordRemover(BaseEstimator, TransformerMixin):
 
 class Lemmatizer(BaseEstimator, TransformerMixin):
     '''
-    Performs standard lemmatizing on words and removes words
+    Performs standard lemmatizing on words and removes words that are shorter than 3 characters
     '''
     def __init__(self, word_list, stopwords=True):
     self.word_list = word_list
