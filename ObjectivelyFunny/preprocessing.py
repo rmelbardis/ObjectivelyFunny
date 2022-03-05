@@ -146,17 +146,20 @@ class Replacer(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         for k, v in self.word_dict.items():
-            if type(v) == str:
-                X['full_transcript'] = X['full_transcript'].str.replace(v, k)
+            if isinstance(self.word_dict[k], str):
+                X['full_transcript'] = X['full_transcript'].apply(
+                                        lambda x: re.sub(v, k, str(x)))
             else:
                 for word in v:
-                    X['full_transcript'] = X['full_transcript'].str.replace(word, k)
+                    X['full_transcript'] = X['full_transcript'].apply(
+                                        lambda x: re.sub(word, k, str(x)))
         return pd.DataFrame(X)
 
 class PuncRemover(BaseEstimator, TransformerMixin):
     '''
     Removes punctuation from text
-    Takes chars (default='“”‘’…♪♫¶') as an optional parameter which is added to the standard string.punctuation string.
+    Takes chars (default='“”‘’…♪♫¶') as an optional parameter which is added
+    to the standard string.punctuation string.
     '''
     def __init__(self, extra_chars='“”‘’…♪♫¶'):
         self.extra_chars = extra_chars
@@ -166,7 +169,7 @@ class PuncRemover(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         for punc in self.punctuation:
-            X = X.str.replace(punc, '')
+            X['full_transcript'] = X['full_transcript'].str.replace(punc, '')
         return pd.DataFrame(X)
 
 class WordRemover(BaseEstimator, TransformerMixin):

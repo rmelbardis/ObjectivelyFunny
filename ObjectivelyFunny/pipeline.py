@@ -6,9 +6,9 @@ import ipdb
 
 def set_pipeline(include_steps,
                 swearing_dict = {
-                    'fuck': ['fucking', 'f*ck', 'f_ck', 'f**k', 'f***'],
-                    'bitch': ['b*tch', 'b_tch', 'b****', 'b**ch', 'b***h'],
-                    'shit': ['sh*t', 'sh_t', 's**t', 's***']},
+                    "fuck": [r"fucking", r"f\*ck", r"f_ck", r"f\*\*k", r"f\*\*\*"],
+                    "bitch": [r"b\*tch", r"b_tch", r"b\*\*\*\*", r"b\*\*ch", r"b\*\*\*h"],
+                    "shit": [r"sh\*t", r"sh_t", r"s\*\*t", r"s\*\*\*"]},
                 lemmatizer_dict = {
                     'get': 'got',
                     'go': 'gon',
