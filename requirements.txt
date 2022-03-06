@@ -14,21 +14,18 @@ matplotlib
 seaborn
 requests
 bs4
+pyldavis
+gensim==3.8.3
+spacy
 
 # tests/linter
-black
-coverage
-flake8
 pytest
-yapf
 pylint
 ipdb
 
 # API
 gcsfs
 google-cloud-storage
-mlflow
-s3fs
 tmdbsimple
 python-dotenv
 
@@ -39,6 +36,4 @@ gtts
 # utilities
 six>=1.14
 joblib
-memoized-property
-termcolor
 wordcloud
