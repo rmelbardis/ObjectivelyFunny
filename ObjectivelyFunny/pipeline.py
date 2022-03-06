@@ -39,6 +39,7 @@ def set_pipeline(include_steps,
     blocks = [
             ('music', preprocessing.MusicRemover()),
             ('brackets', preprocessing.BracketRemover()),
+            ('regex', preprocessing.RegexRemover()),
             ('lowercase', preprocessing.LowerCase()),
             ('numbers', preprocessing.NumRemover()),
             ('uncensor', preprocessing.Replacer(swearing_dict)),
