@@ -17,7 +17,7 @@ def set_pipeline(include_steps,
                     'find': 'finding'},
                 dropword_list = [
                 'thank', 'cheering', 'recorded', 'applause', 'laughter', 'laughing', 'murmuring', 'chatter',
-                'aired', 'filmed', 'ladies', 'gentlemen', 'welcome', 'stage', 'transcript', 'netflix',
+                'aired', 'filmed', 'ladies', 'gentlemen', 'lady', 'gentleman', 'welcome', 'stage', 'transcript', 'netflix',
                 'apollo', 'like', 'goodnight', 'mutter', 'noo', 'nuh', 'oof', 'maan', 'cause', 'okay',
                 'hey', 'also', 'someone', 'somebody', 'everybody', 'also', 'part' , 'sometimes', 'maybe',
                 'three', 'second', 'everything', 'minute', 'name', 'kind', 'point', 'yeah', 'hello', 'one',
@@ -44,7 +44,7 @@ def set_pipeline(include_steps,
             ('uncensor', preprocessing.Replacer(swearing_dict)),
             ('punctuation', preprocessing.PuncRemover()),
             ('lemmatizer', preprocessing.Lemmatizer()),
-            ('manual_lemmatizer', preprocessing.Replacer(lemmatizer_dict)),
+            ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
             ('remove', preprocessing.WordRemover(dropword_list))
         ]
 
