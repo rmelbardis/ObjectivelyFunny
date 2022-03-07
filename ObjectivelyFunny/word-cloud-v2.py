@@ -74,8 +74,6 @@ class ComedyWordCloud:
 
     def get_index(self):
         '''
-        Takes option as a string, with options of: ['artist', 'age', 'gender']
-        Takes condition as string
         Returns a list of index in the dataframe meeting the condition
         '''
         option_dict = {'age': 'age_then', 'gender': 'artist_gender'}
@@ -114,7 +112,7 @@ class ComedyWordCloud:
 
     def plot_decade_cloud(self, year):
         '''
-        Input a decade number as int,
+        Input a decade number as an int,
         plot a word cloud for that decade
         '''
         self.year = year
@@ -168,5 +166,5 @@ if __name__ == "__main__":
     df = pd.read_json('../raw_data/temp_df_for_testing.json')
     wc = ComedyWordCloud(df)
 
-    wc.plot_decade_cloud(1970)
-    #wc.plot_some_cloud('age', '25')
+    #wc.plot_decade_cloud(1970)
+    wc.plot_some_cloud('gender', 'F')
