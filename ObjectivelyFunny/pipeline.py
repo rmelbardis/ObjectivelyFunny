@@ -1,7 +1,7 @@
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.compose import ColumnTransformer
 
-from ObjectivelyFunny import preprocessing
+from ObjectivelyFunny import preprocessing, model_setup
 import ipdb
 
 def set_pipeline(include_steps,
@@ -26,13 +26,14 @@ def set_pipeline(include_steps,
                 'go', 'know', 'host', 'goodnight', 'get', 'gon', 'think', 'say', 'right', 'look',
                 'thing', 'make', 'know', 'want', 'going', 'would', 'could', 'gentlemen', 'let', 'please',
                 'hbo', 'special' 'yes', 'take', 'say', 'got', 'come', 'see', 'really', 'tell',
-                'well', 'give', 'said']):
+                'well', 'give', 'said'],
+                seq_min_length = 10, seq_max_length = 21):
     '''
     create pipeline for preprocessing
 
     possible include_steps list:
-    ['music', 'brackets', 'lowercase', 'numbers', 'uncensor', 'punctuation',
-    'lemmatizer', 'manual_lemmatizer', 'remove']
+    ['music', 'brackets', regex', 'lowercase', 'numbers', 'uncensor', 'punctuation',
+    'lemmatizer', 'manual_lemmatizer', 'remove', 'split_words', 'sequences']
 
     has standard swearing_dict, lemmatizer_dict and dropword_list by default, but - these can be changed
     '''
@@ -46,7 +47,9 @@ def set_pipeline(include_steps,
             ('punctuation', preprocessing.PuncRemover()),
             ('lemmatizer', preprocessing.Lemmatizer()),
             ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
-            ('remove', preprocessing.WordRemover(dropword_list))
+            ('remove', preprocessing.WordRemover(dropword_list)),
+            ('split_words', preprocessing.WordSplitter()),
+            ('sequences', preprocessing.Sequencer(seq_min_length, seq_max_length))
         ]
 
     incl_blocks = []

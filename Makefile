@@ -4,12 +4,6 @@
 install_requirements:
 	@pip install -r requirements.txt
 
-check_code:
-	@flake8 scripts/* ObjectivelyFunny/*.py
-
-black:
-	@black scripts/* ObjectivelyFunny/*.py
-
 test:
 	@coverage run -m pytest tests/*.py
 	@coverage report -m --omit="${VIRTUAL_ENV}/lib/python*"
@@ -53,3 +47,43 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+# ------------------------------------
+#      GOOGLE CLOUD RUNNING / STORAGE
+# ------------------------------------
+
+PROJECT_ID=le-wagon-data-bootcamp-337512
+BUCKET_NAME=wagon-data-805-melbardis
+REGION=europe-west1
+
+set_project:
+	@gcloud config set project ${PROJECT_ID}
+
+##### Python params  - - - - - - - - - - - - - - - - - - -
+PYTHON_VERSION=3.7
+FRAMEWORK=scikit-learn
+RUNTIME_VERSION=2.8
+
+##### Package params  - - - - - - - - - - - - - - - - - - -
+
+PACKAGE_NAME=ObjectivelyFunny
+FILENAME=trainer
+
+##### Job - - - - - - - - - - - - - - - - - - - - - - - - -
+
+JOB_NAME=comedy_model_training_$(shell date +'%Y%m%d_%H%M%S')
+
+##### Bucket - - - - - - - -
+BUCKET_TRAINING_FOLDER = 'trainings'
+
+gcp_submit_training:
+	gcloud ai-platform jobs submit training ${JOB_NAME} \
+		--job-dir gs://${BUCKET_NAME}/${BUCKET_TRAINING_FOLDER} \
+		--package-path ${PACKAGE_NAME} \
+		--module-name ${PACKAGE_NAME}.${FILENAME} \
+		--python-version=${PYTHON_VERSION} \
+		--runtime-version=${RUNTIME_VERSION} \
+		--region ${REGION} \
+		--stream-logs \
+		--scale-tier CUSTOM \
+		--master-machine-type n1-standard-16
