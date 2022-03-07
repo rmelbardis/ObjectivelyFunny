@@ -14,17 +14,24 @@ class ComedyWordCloud:
         self.df = df
         self.year = None
         self.mask = None
+        self.option = None
+        self.condition = None
 
     def generate_wordcloud(self, selection):
         '''
         Generating a default word cloud
         '''
-        custom_color = color_combo(self)
-
-        wc = WordCloud(width=500, height = 500, background_color='white',
+        if self.year is not None:
+            custom_color = color_combo(self)
+            wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
                     stopwords = STOPWORDS, mask=custom_color[1],
                     contour_width=10, contour_color=custom_color[0])
+        else:
+            self.mask = np.array(Image.open(f'../images/emoji.png'))
+            wc = WordCloud(width=500, height = 500, background_color='white',
+                    max_words = 150, collocations=False,
+                    stopwords = STOPWORDS, mask=self.mask)
         word_cloud = wc.generate(selection)
         return word_cloud
 
@@ -45,10 +52,13 @@ class ComedyWordCloud:
                        interpolation="bilinear")
         # No axis details
         plt.axis("off")
-        plt.savefig(f"{self.year}_cloud.png", format="png")
+        if self.year:
+            plt.savefig(f"../cloud-images/{self.year}_cloud.png", format="png")
+        else:
+            plt.savefig(f"../cloud-images/{self.option}_{self.condition}_cloud.png", format="png")
         plt.show();
 
-    def get_index(self, df, option, condition):
+    def get_index(self):
         '''
         Takes option as a string, with options of: ['artist', 'age', 'gender']
         Takes condition as string
@@ -57,32 +67,35 @@ class ComedyWordCloud:
         option_dict = {'age': 'age_then', 'gender': 'artist_gender'}
         gender_dict = {'F': '1', 'M': '2', 'Q': '3'}
 
-        if option not in ['artist', 'age', 'gender']:
+        if self.option not in ['artist', 'age', 'gender']:
             return 'Options are: artist, age or gender.'
 
-        if option=='gender' and condition not in ['F', 'M', 'Q']:
+        if self.option=='gender' and self.condition not in ['F', 'M', 'Q']:
             return 'Choose from: F(emale), M(ale) or Q(ueer).'
 
-        if type(condition) is not str:
+        if type(self.condition) is not str:
             return 'Please put your condition in a string.'
 
-        condition = condition.title()
+        self.condition = self.condition.title()
 
         # translating user selection into dataframe column name
         for k, v in option_dict.items():
-            option = option.replace(k, v)
-        option = option.lower()
+            self.option = self.option.replace(k, v)
+        self.option = self.option.lower()
 
-        if option=='artist':
-            output= df[df[option] == condition].index
+        if self.option=='artist':
+            output= self.df[self.df[self.option] == self.condition].index
         else:
             # encoding gender conditions
-            if option=='artist_gender':
+            if self.option=='artist_gender':
                 for k, v in gender_dict.items():
-                    condition = condition.replace(k, v)
-            output = df[df[option] == int(condition)].index
+                    self.condition = self.condition.replace(k, v)
+            output = self.df[self.df[self.option] == int(self.condition)].index
         if len(output)<1:
-                return f'No results with {option} as {condition}, please check.'
+            message = f'No results with {self.option} as {self.condition}, please check.'
+            print(message)
+            return message
+
         return output
 
     def plot_decade_cloud(self, year):
@@ -108,19 +121,22 @@ class ComedyWordCloud:
         print(f'Here is a word cloud of transcripts from the {self.year}s.')
         self.plot_cloud(selection)
 
-    def plot_some_cloud(self, df, option, condition):
+    def plot_some_cloud(self, option, condition):
         '''
         Search for index meeting conditions
         Plot a word cloud using selected text
         '''
+        self.option = option
+        self.condition = condition
 
-        index = self.get_index(df, option, condition)
+        index = self.get_index()
+
         if len(index) > 1:
-            index = index[0]
-            selection = df['full_transcript_clean'][index]
-            no_of_transcripts = index[-1]-index[0]+1
+            selection = self.df['full_transcript_clean'].loc[index]
+            selection = ' '.join(selection)
+            no_of_transcripts = len(index)
         else:
-            t = df['full_transcript_clean'][index]
+            t = self.df['full_transcript_clean'][index]
             selection = ' '.join(t)
             no_of_transcripts = 1
 
@@ -157,7 +173,6 @@ if __name__ == "__main__":
 
 
     wc = ComedyWordCloud(df)
-    wc.plot_decade_cloud(1970)
+    #wc.plot_decade_cloud(1970)
 
-
-     #wc.plot_some_cloud(df, 'artist', 'mae martin')
+    wc.plot_some_cloud('artist', 'Bo Burnham')
