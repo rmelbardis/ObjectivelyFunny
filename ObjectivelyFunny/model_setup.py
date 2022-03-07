@@ -1,21 +1,13 @@
 # imports
-import string
-import re
 import pandas as pd
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-from sklearn.base import BaseEstimator, TransformerMixin
 
-# nltk downloads
-from nltk import download
-download('punkt')
+from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class WordSplitter(BaseEstimator, TransformerMixin):
     '''
-    Removes fragments in notes list (default ['♫', '♪'])
-    pass notes argument as list to function for alternative list
+    Splits full_transcript into 'full_words' using .split()
+    Then creates a new columns called 'num_words' that counts the 'full_words'
     '''
     def fit(self, X, y=None):
         return self
