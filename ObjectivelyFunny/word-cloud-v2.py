@@ -166,5 +166,5 @@ if __name__ == "__main__":
     df = pd.read_json('../raw_data/temp_df_for_testing.json')
     wc = ComedyWordCloud(df)
 
-    #wc.plot_decade_cloud(1970)
-    wc.plot_some_cloud('gender', 'F')
+    wc.plot_decade_cloud(2020)
+    #wc.plot_some_cloud('gender', 'F')
