@@ -1,15 +1,15 @@
 # imports
-from ObjectivelyFunny import cloud_paths
-from ObjectivelyFunny.model_setup import initialize_model
 import joblib
 from google.cloud import storage
 
+from ObjectivelyFunny import cloud_paths
+from ObjectivelyFunny.model_setup import initialize_model
 from ObjectivelyFunny.pipeline import set_pipeline
 from ObjectivelyFunny.data import get_data, get_small_data, get_X_y_vocab_seqlength
 
 class Trainer():
 
-    def __init__(self, X, y, model, epochs=50, batch_size=128, validation_split=0.05, model_name='LSTM'):
+    def __init__(self, X, y, model, epochs=100, batch_size=128, validation_split=0.05, model_name='LSTM'):
         self.pipeline = None
         self.X = X
         self.y = y

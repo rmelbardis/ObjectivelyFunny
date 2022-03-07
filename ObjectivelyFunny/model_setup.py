@@ -14,8 +14,9 @@ def initialize_model(vocab_size, seq_length, embed_dims):
     # LSTM and Dense layers
     model.add(LSTM(100, return_sequences=True))
     model.add(LSTM(100))
+    model.add(Dropout(0.5))
     model.add(Dense(100, activation='relu'))
-
+    model.add(Dropout(0.5))
     # Output layer
     model.add(Dense(vocab_size, activation='softmax'))
 
