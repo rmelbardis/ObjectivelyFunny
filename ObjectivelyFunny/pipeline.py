@@ -32,7 +32,7 @@ def set_pipeline(include_steps,
     create pipeline for preprocessing
 
     possible include_steps list:
-    ['music', 'brackets', 'lowercase', 'numbers', 'uncensor', 'punctuation',
+    ['music', 'brackets', regex', 'lowercase', 'numbers', 'uncensor', 'punctuation',
     'lemmatizer', 'manual_lemmatizer', 'remove', 'split_words', 'sequences']
 
     has standard swearing_dict, lemmatizer_dict and dropword_list by default, but - these can be changed
