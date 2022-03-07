@@ -165,7 +165,7 @@ class ComedyWordCloud:
 
 if __name__ == "__main__":
     # Get and clean data
-    df = pd.read_json('../raw_data/fully_stripped_df.json')
+    df = pd.read_json('../raw_data/temp_df_for_testing.json')
     wc = ComedyWordCloud(df)
 
     #wc.plot_decade_cloud(1970)
