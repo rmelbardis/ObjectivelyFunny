@@ -30,16 +30,21 @@ def create_sequences(word_list, min_length, max_length):
             sequences.append(seq)
     return sequences
 
-def get_X_y_vocab(X, seq_length):
+def get_X_y_vocab_seqlength(X, seq_length):
     '''
-    Usage : "X, y, vocab_size, X_seq_length = get_X_y_vocab_seqlength(df)"
+    Usage : "X, y, vocab_size, X_seq_length = get_X_y_vocab_seqlength(df, seq_length)"
 
-    Takes list of sequence lists from a dataframe column called 'sequences'
-    and applies the following:
+    Takes list of sequence lists from a dataframe column called 'sequences',
+    and required length of X+y sequences.
+
+    Applies the following:
       - transforms the column into a single list of lists
       - Tokenizes the words into integers
       - Applies default padding to seq_length
-      - Transforms y into categorical
+      - splits each sequence into X = all but the last word and y = last word
+      - Transforms y into categorical for prediction
+      - updates sequence length to just be the X sequence
+      - outputs X, y, vocab_size and X_seq_length
     '''
     # create single list of sequences
     sequence_list = list(X['sequences'].explode())
