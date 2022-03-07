@@ -1,35 +1,27 @@
 # imports
-import pandas as pd
+from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
+from tensorflow.keras.models import Sequential
 
-from sklearn.base import BaseEstimator, TransformerMixin
+def initialize_model(vocab_size, seq_length, embed_dims):
+    model = Sequential()
 
-from ObjectivelyFunny.data import create_sequences
+    model.add(Embedding(
+        input_dim = vocab_size,
+        input_length = seq_length,
+        output_dim = embed_dims,
+        mask_zero = True))
 
-class WordSplitter(BaseEstimator, TransformerMixin):
-    '''
-    Splits full_transcript into 'full_words' using .split()
-    Then creates a new columns called 'num_words' that counts the 'full_words'
-    '''
-    def fit(self, X, y=None):
-        return self
+    # LSTM and Dense layers
+    model.add(LSTM(100, return_sequences=True))
+    model.add(LSTM(100))
+    model.add(Dense(100, activation='relu'))
 
-    def transform(self, X, y=None):
-        X['full_words'] = X['full_transcript'].str.split()
-        X['num_words'] = X['full_words'].str.len()
-        return pd.DataFrame(X)
+    # Output layer
+    model.add(Dense(vocab_size, activation='softmax'))
 
-class Sequencer(BaseEstimator, TransformerMixin):
-    '''
-    From 'full_words', creates 'sequences' column -
-    list of lists of sequences of consecutive words from min_length to max_length
-    '''
-    def __init__(self, min_length, max_length):
-        self.min_length = min_length
-        self.max_length = max_length
+    # Compile Function
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='rmsprop',
+                  metrics=['accuracy'])
 
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X, y=None):
-        X['sequences'] = X['full_words'].apply(create_sequences, args=(self.min_length, self.max_length))
-        return pd.DataFrame(X)
+    return model
