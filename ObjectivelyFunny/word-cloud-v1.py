@@ -22,7 +22,7 @@ class ComedyWordCloud:
         wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
                     stopwords = STOPWORDS, mask=self.mask,
-                    contour_width=140, contour_color=self.color)
+                    contour_width=10, contour_color=self.color)
         word_cloud = wc.generate(selection)
         return word_cloud
 
@@ -124,7 +124,9 @@ class ComedyWordCloud:
 
 def color_combo(image):
     color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
-                  '2010.jpg': 'orange', '2000.jpg': 'navy'}
+                  '2010.jpg': 'orange', '2000.jpg': 'navy',
+                  '1970.jpg': 'green', '1990.jpg': 'brown',
+                  '1980.jpg': 'black'}
 
     if image in color_dict:
         color = color_dict[image]
@@ -141,7 +143,7 @@ if __name__ == "__main__":
     # image = '../images/emoji.png'
     #mask = np.array(Image.open(image))
 
-    year = 2000
+    year = 1980
     image = f'{year}.jpg'
     mask = np.array(Image.open(f'../images/{image}'))
 
