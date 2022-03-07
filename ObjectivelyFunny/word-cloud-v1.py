@@ -10,19 +10,21 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from wordcloud import ImageColorGenerator
 
 class ComedyWordCloud:
-    def __init__(self, df, color=None, mask=None):
+    def __init__(self, df):
         self.df = df
-        self.mask = mask
-        self.color = color
+        self.year = None
+        self.mask = None
 
     def generate_wordcloud(self, selection):
         '''
         Generating a default word cloud
         '''
+        custom_color = color_combo(self)
+
         wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
-                    stopwords = STOPWORDS, mask=self.mask,
-                    contour_width=10, contour_color=self.color)
+                    stopwords = STOPWORDS, mask=custom_color[1],
+                    contour_width=10, contour_color=custom_color[0])
         word_cloud = wc.generate(selection)
         return word_cloud
 
@@ -33,7 +35,7 @@ class ComedyWordCloud:
         '''
         # Generate word cloud and set the size
         wordcloud = self.generate_wordcloud(selection)
-        plt.figure(figsize=(30, 20))
+        plt.figure(figsize=(10,8))
         # Display image
         if self.mask is None:
             plt.imshow(wordcloud)
@@ -43,6 +45,7 @@ class ComedyWordCloud:
                        interpolation="bilinear")
         # No axis details
         plt.axis("off")
+        plt.savefig(f"{self.year}_cloud.png", format="png")
         plt.show();
 
     def get_index(self, df, option, condition):
@@ -82,22 +85,27 @@ class ComedyWordCloud:
                 return f'No results with {option} as {condition}, please check.'
         return output
 
-    def plot_decade_cloud(self, df, decade):
+    def plot_decade_cloud(self, year):
         '''
         Input a decade number as int,
         plot a word cloud for that decade
         '''
+        self.year = year
+        if not type(self.year) is int:
+            message = 'Please inpute decade as an int.'
+            print(message)
+            return message
+        if self.year not in [1960, 1970, 1980, 1990, 2000, 2010, 2020]:
+            message = 'Decade number not supported. Please choose from 1960-2020.'
+            print(message)
+            return message
 
-        if type(decade)!=int:
-            return 'Please input decade value as an int.'
-        if decade not in [1960, 1970, 1980, 1990, 2000, 2010, 2020]:
-            return 'select a decade from [1960, 1970, 1980, 1990, 2000, 2010, 2020]'
-        decade_df = df[(df.year//10)*10 == decade]
+        decade_df = self.df[(self.df.year//10)*10 == self.year]
 
         t = decade_df['full_transcript_clean']
         selection = ' '.join(t)
         print(f"Plotting with transcripts of {len(selection)} characters...")
-        print(f'Here is a word cloud of transcripts from the {decade}s.')
+        print(f'Here is a word cloud of transcripts from the {self.year}s.')
         self.plot_cloud(selection)
 
     def plot_some_cloud(self, df, option, condition):
@@ -122,7 +130,9 @@ class ComedyWordCloud:
 
         self.plot_cloud(selection)
 
-def color_combo(image):
+def color_combo(self):
+    image = f'{self.year}.jpg'
+    mask = np.array(Image.open(f'../images/{image}'))
     color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
                   '2010.jpg': 'orange', '2000.jpg': 'navy',
                   '1970.jpg': 'green', '1990.jpg': 'brown',
@@ -135,7 +145,9 @@ def color_combo(image):
     else:
         color = 'white'
 
-    return color
+    self.mask = mask
+
+    return color, mask
 
 if __name__ == "__main__":
     # Get and clean data
@@ -143,14 +155,9 @@ if __name__ == "__main__":
     # image = '../images/emoji.png'
     #mask = np.array(Image.open(image))
 
-    year = 1980
-    image = f'{year}.jpg'
-    mask = np.array(Image.open(f'../images/{image}'))
 
-    custom_color = color_combo(image)
-    wc = ComedyWordCloud(df, custom_color, mask)
-
-    #wc.plot_some_cloud(df, 'artist', 'mae martin')
+    wc = ComedyWordCloud(df)
+    wc.plot_decade_cloud(1970)
 
 
-    wc.plot_decade_cloud(df, year)
+     #wc.plot_some_cloud(df, 'artist', 'mae martin')
