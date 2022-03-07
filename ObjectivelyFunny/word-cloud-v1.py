@@ -2,12 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from nltk.tokenize import word_tokenize
-from wordcloud import WordCloud, STOPWORDS
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.feature_extraction.text import TfidfVectorizer
-from wordcloud import ImageColorGenerator
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 class ComedyWordCloud:
     def __init__(self, df):
@@ -17,12 +12,31 @@ class ComedyWordCloud:
         self.option = None
         self.condition = None
 
+    def color_combo(self):
+        image = f'{self.year}.jpg'
+        mask = np.array(Image.open(f'../images/{image}'))
+        color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
+                    '2010.jpg': 'orange', '2000.jpg': 'navy',
+                    '1970.jpg': 'green', '1990.jpg': 'brown',
+                    '1980.jpg': 'black'}
+
+        if image in color_dict:
+            color = color_dict[image]
+            # for k,v in color_dict.items():
+            #     color = image.replace(k, v)
+        else:
+            color = 'white'
+
+        self.mask = mask
+
+        return color, mask
+
     def generate_wordcloud(self, selection):
         '''
         Generating a default word cloud
         '''
         if self.year is not None:
-            custom_color = color_combo(self)
+            custom_color = self.color_combo(self)
             wc = WordCloud(width=500, height = 500, background_color='white',
                     max_words = 150, collocations=False,
                     stopwords = STOPWORDS, mask=custom_color[1],
@@ -129,7 +143,10 @@ class ComedyWordCloud:
         self.option = option
         self.condition = condition
 
+        print(f'You selected {condition} as {option}.')
+
         index = self.get_index()
+        print('Searching...')
 
         if len(index) > 1:
             selection = self.df['full_transcript_clean'].loc[index]
@@ -139,40 +156,17 @@ class ComedyWordCloud:
             t = self.df['full_transcript_clean'][index]
             selection = ' '.join(t)
             no_of_transcripts = 1
-
-        print(f'You selected {condition} as {option}.')
         print(f'{no_of_transcripts} transcript(s) found.')
+
         print(f"Plotting with transcripts of {len(selection)} characters...")
 
         self.plot_cloud(selection)
 
-def color_combo(self):
-    image = f'{self.year}.jpg'
-    mask = np.array(Image.open(f'../images/{image}'))
-    color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
-                  '2010.jpg': 'orange', '2000.jpg': 'navy',
-                  '1970.jpg': 'green', '1990.jpg': 'brown',
-                  '1980.jpg': 'black'}
-
-    if image in color_dict:
-        color = color_dict[image]
-        # for k,v in color_dict.items():
-        #     color = image.replace(k, v)
-    else:
-        color = 'white'
-
-    self.mask = mask
-
-    return color, mask
 
 if __name__ == "__main__":
     # Get and clean data
     df = pd.read_json('../raw_data/fully_stripped_df.json')
-    # image = '../images/emoji.png'
-    #mask = np.array(Image.open(image))
-
-
     wc = ComedyWordCloud(df)
-    #wc.plot_decade_cloud(1970)
 
-    wc.plot_some_cloud('artist', 'Bo Burnham')
+    #wc.plot_decade_cloud(1970)
+    wc.plot_some_cloud('age', '25')
