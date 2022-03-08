@@ -23,12 +23,22 @@ with st.container():
     with col1:
         option1 = st.slider('Select the first decade', min_value=1980,  max_value =2020,
                         step=10, key=1)
-        st.write('Decade １:', f'{option1}s')
+        if option1==1980:
+            # 1980 here is equivalent to 1989 in the dataframe which was used to represent before 1990
+            st.write('Decade １:', 'before 1990')
+            option2=1989
+        else:
+            st.write('Decade １:', f'{option1}s')
 
     with col2:
         option2 = st.slider('Select the second decade', min_value=1980,  max_value =2020,
                         step=10, key=2)
-        st.write('Decade ２:', f'{option2}s')
+        if option2==1980:
+            # 1980 here is equivalent to 1989 in the dataframe which was used to represent before 1990
+            st.write('Decade ２:', 'before 1990')
+            option2=1989
+        else:
+            st.write('Decade ２:', f'{option2}s')
 
     image1 = Image.open(f'../cloud-images/{option1}_cloud.png')
 
