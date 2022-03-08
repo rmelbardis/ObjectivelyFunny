@@ -12,7 +12,7 @@ from gensim.models.ldamodel import LdaModel
 
 class LDATrainer():
 
-    def __init__(self, update_every=5, model_name='LDA_Fem'):
+    def __init__(self, update_every=5, model_name='model'):
         self.model_name = model_name
         self.update_every = update_every
 
@@ -48,19 +48,36 @@ class LDATrainer():
                         per_word_topics=True)
         return self
 
-    # def save_model(self):
-    #     """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
-    #     HINTS : use joblib library and google-cloud-storage"""
+    def save_model(self):
+        '''
+        saves model
+        '''
+        # client = storage.Client()
+        # bucket = client.get_bucket(cloud_paths.BUCKET_NAME)
+        # blob = bucket.blob(f'{cloud_paths.STORAGE_LOCATION}{self.model_name}')
 
-    #     client = storage.Client()
-    #     bucket = client.bucket(cloud_paths.BUCKET_NAME)
-    #     blob = bucket.blob(f'{cloud_paths.STORAGE_LOCATION}{self.model_name}')
+        # Save model to disk.
+        self.model.save(f'LDA_models/{self.model_name}')
 
 if __name__ == "__main__":
-    df = get_data(gender=[1])
+    # gender topic search
+    name_dict = {'1': 'LDA_Ladies',
+                 '2': 'LDA_Gentlemen',
+                 '3': 'LDA_Genderqueer'}
+    for i in range(1, 4):
+        print(f'Starting run {i}:')
+        df = get_data(gender=[i])
+        print('Data acquired')
+        clean_steps = ['music', 'brackets', 'lowercase', 'regex', 'numbers', 'uncensor', 'remove', 'punctuation',
+        'lemmatizer', 'manual_lemmatize', 'remove2']
+        clean_df = set_pipeline(clean_steps,
+                        ).fit_transform(df)
+        print('Dataframe cleaned')
 
-    clean_steps = ['music', 'brackets', 'lowercase', 'regex', 'numbers', 'uncensor', 'punctuation',
-    'lemmatizer', 'manual_lemmatizer', 'remove']
-    clean_df = set_pipeline(clean_steps,
-                    dropword_list = word_selections.standard_dropword_list + word_selections.decade_dropword_list
-                    ).fit_transform(df)
+        model = LDATrainer(update_every=5, model_name=name_dict[str(i)])
+        model.make_words(clean_df).make_grams().make_dictionary()
+        print('Gram dictionary made')
+        model.run()
+        print('Model finished running')
+        model.save_model()
+        print('model_saved')

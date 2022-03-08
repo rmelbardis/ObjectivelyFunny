@@ -14,29 +14,27 @@ def set_pipeline(include_steps,
 
     possible include_steps list:
     ['music', 'brackets', 'regex', 'lowercase', 'numbers', 'uncensor', 'punctuation',
-    'lemmatizer', 'manual_lemmatizer', 'remove', 'split_words', 'sequences']
+    'lemmatizer', 'manual_lemmatize', 'remove', 'split_words', 'sequences']
 
     has standard swearing_dict, lemmatizer_dict and dropword_list by default, but - these can be changed
     '''
-    blocks = [
-            ('music', preprocessing.MusicRemover()),
-            ('brackets', preprocessing.BracketRemover()),
-            ('lowercase', preprocessing.LowerCase()),
-            ('regex', preprocessing.RegexRemover()),
-            ('numbers', preprocessing.NumRemover()),
-            ('uncensor', preprocessing.Replacer(swearing_dict)),
-            ('punctuation', preprocessing.PuncRemover()),
-            ('lemmatizer', preprocessing.Lemmatizer()),
-            ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
-            ('remove', preprocessing.WordRemover(dropword_list)),
-            ('split_words', preprocessing.WordSplitter()),
-            ('sequences', preprocessing.Sequencer(seq_min_length, seq_max_length))
-        ]
+    blocks = {
+            'music': ('music', preprocessing.MusicRemover()),
+            'brackets': ('brackets', preprocessing.BracketRemover()),
+            'lowercase': ('lowercase', preprocessing.LowerCase()),
+            'regex': ('regex', preprocessing.RegexRemover()),
+            'numbers': ('numbers', preprocessing.NumRemover()),
+            'uncensor': ('uncensor', preprocessing.Replacer(swearing_dict)),
+            'punctuation': ('punctuation', preprocessing.PuncRemover()),
+            'lemmatizer': ('lemmatizer', preprocessing.Lemmatizer()),
+            'manual_lemmatize': ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
+            'remove': ('remove', preprocessing.WordRemover(dropword_list)),
+            'remove2': ('remove2', preprocessing.WordRemover(dropword_list)),
+            'split_words': ('split_words', preprocessing.WordSplitter()),
+            'sequences': ('sequences', preprocessing.Sequencer(seq_min_length, seq_max_length))
+        }
 
-    incl_blocks = []
-    for bloc in blocks:
-            if bloc[0] in include_steps:
-                incl_blocks.append(bloc)
+    incl_blocks = [blocks[bloc] for bloc in include_steps]
 
     pipe = Pipeline(incl_blocks)
 

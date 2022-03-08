@@ -5,6 +5,7 @@ from ObjectivelyFunny import cloud_paths
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
+from gensim.utils import simple_preprocess
 
 def get_data(gender=None, age=None, artist=None, year=None, show_name=None):
     """method to get data from google cloud, then transform"""
@@ -69,6 +70,10 @@ def get_X_y_vocab_seqlength(X, seq_length):
     X_seq_length = X.shape[1]
 
     return X, y, vocab_size, X_seq_length
+
+def sent_to_words(sentences):
+    for sentence in sentences:
+        yield(simple_preprocess(str(sentence), deacc=True))  # deacc=True removes punctuations
 
 # if __name__ == '__main__':
 #     df = get_small_data()
