@@ -201,9 +201,9 @@ if __name__ == "__main__":
     # for num in [1989, 1990, 2000, 2010, 2020]:
     #     wc.plot_decade_cloud(num)
     #wc.plot_some_cloud('gender', 'F')
-    #for char in ['U30', '30', '40', '50', '60', 'O60']:
-    #    wc.plot_age_cloud(char)
+    for char in ['U30', '30', '40', '50', 'O60']:
+       wc.plot_age_cloud(char)
 
-    wc.plot_some_cloud('gender', 'F')
-    wc.plot_some_cloud('gender', 'M')
-    wc.plot_some_cloud('gender', 'Q')
+    # wc.plot_some_cloud('gender', 'F')
+    # wc.plot_some_cloud('gender', 'M')
+    # wc.plot_some_cloud('gender', 'Q')
