@@ -61,9 +61,16 @@ class LDATrainer():
 
 if __name__ == "__main__":
     # gender topic search
-    name_dict = {'1': 'LDA_Ladies',
-                 '2': 'LDA_Gentlemen',
-                 '3': 'LDA_Genderqueer'}
+    name_dict = {'1': 'LDA_pre_1990',
+                 '2': 'LDA_90s',
+                 '3': 'LDA_00s',
+                 '4': 'LDA_10s',
+                 '5': 'LDA_20s'}
+
+    year_dict = [list(range(1960, 1990)), list(range(1960, 1990), list(range(1960, 1990), list(range(1960, 1990)]
+
+
+
     for i in range(1, 4):
         print(f'Starting run {i}:')
         df = get_data(gender=[i])
