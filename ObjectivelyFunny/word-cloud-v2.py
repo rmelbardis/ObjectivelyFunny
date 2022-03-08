@@ -26,8 +26,6 @@ class ComedyWordCloud:
 
         if image in color_dict:
             color = color_dict[image]
-            # for k,v in color_dict.items():
-            #     color = image.replace(k, v)
         else:
             color = 'white'
 
@@ -75,6 +73,7 @@ class ComedyWordCloud:
         elif self.age:
             plt.savefig(f"../cloud-images/{self.age}_cloud.png", format="png")
         else:
+            print(self.option)
             plt.savefig(f"../cloud-images/{self.option}_{self.condition}_cloud.png", format="png")
         #plt.show();
 
@@ -205,4 +204,6 @@ if __name__ == "__main__":
     #for char in ['U30', '30', '40', '50', '60', 'O60']:
     #    wc.plot_age_cloud(char)
 
-    wc.plot_decade_cloud(1989)
+    wc.plot_some_cloud('gender', 'F')
+    wc.plot_some_cloud('gender', 'M')
+    wc.plot_some_cloud('gender', 'Q')
