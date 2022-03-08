@@ -1,61 +1,40 @@
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.compose import ColumnTransformer
 
-from ObjectivelyFunny import preprocessing, model_setup
-import ipdb
+from ObjectivelyFunny import preprocessing
+from ObjectivelyFunny import word_selections
 
 def set_pipeline(include_steps,
-                swearing_dict = {
-                    "fuck": [r"fucking", r"f\*ck", r"f_ck", r"f\*\*k", r"f\*\*\*"],
-                    "bitch": [r"b\*tch", r"b_tch", r"b\*\*\*\*", r"b\*\*ch", r"b\*\*\*h"],
-                    "shit": [r"sh\*t", r"sh_t", r"s\*\*t", r"s\*\*\*"]},
-                lemmatizer_dict = {
-                    'get': 'got',
-                    'go': 'gon',
-                    'say': 'said',
-                    'go': 'went',
-                    'find': 'finding'},
-                dropword_list = [
-                'thank', 'cheering', 'recorded', 'applause', 'laughter', 'laughing', 'murmuring', 'chatter',
-                'aired', 'filmed', 'ladies', 'gentlemen', 'lady', 'gentleman', 'welcome', 'stage', 'transcript', 'netflix',
-                'apollo', 'like', 'goodnight', 'mutter', 'noo', 'nuh', 'oof', 'maan', 'cause', 'okay',
-                'hey', 'also', 'someone', 'somebody', 'everybody', 'also', 'part' , 'sometimes', 'maybe',
-                'three', 'second', 'everything', 'minute', 'name', 'kind', 'point', 'yeah', 'hello', 'one',
-                'two', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'whine', 'hnn', 'malla', 'letta',
-                'namoo', 'getta', 'nama', 'mana', 'chk','manoo', 'hadda', 'ama', 'carlin',
-                'go', 'know', 'host', 'goodnight', 'get', 'gon', 'think', 'say', 'right', 'look',
-                'thing', 'make', 'know', 'want', 'going', 'would', 'could', 'gentlemen', 'let', 'please',
-                'hbo', 'special' 'yes', 'take', 'say', 'got', 'come', 'see', 'really', 'tell',
-                'well', 'give', 'said'],
+                swearing_dict = word_selections.swearing_dict,
+                lemmatizer_dict = word_selections.lemmatizer_dict,
+                dropword_list = word_selections.standard_dropword_list,
                 seq_min_length = 10, seq_max_length = 21):
     '''
     create pipeline for preprocessing
 
     possible include_steps list:
-    ['music', 'brackets', regex', 'lowercase', 'numbers', 'uncensor', 'punctuation',
-    'lemmatizer', 'manual_lemmatizer', 'remove', 'split_words', 'sequences']
+    ['music', 'brackets', 'regex', 'lowercase', 'numbers', 'uncensor', 'punctuation',
+    'lemmatizer', 'manual_lemmatize', 'remove', 'split_words', 'sequences']
 
     has standard swearing_dict, lemmatizer_dict and dropword_list by default, but - these can be changed
     '''
-    blocks = [
-            ('music', preprocessing.MusicRemover()),
-            ('brackets', preprocessing.BracketRemover()),
-            ('regex', preprocessing.RegexRemover()),
-            ('lowercase', preprocessing.LowerCase()),
-            ('numbers', preprocessing.NumRemover()),
-            ('uncensor', preprocessing.Replacer(swearing_dict)),
-            ('punctuation', preprocessing.PuncRemover()),
-            ('lemmatizer', preprocessing.Lemmatizer()),
-            ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
-            ('remove', preprocessing.WordRemover(dropword_list)),
-            ('split_words', preprocessing.WordSplitter()),
-            ('sequences', preprocessing.Sequencer(seq_min_length, seq_max_length))
-        ]
+    blocks = {
+            'music': ('music', preprocessing.MusicRemover()),
+            'brackets': ('brackets', preprocessing.BracketRemover()),
+            'lowercase': ('lowercase', preprocessing.LowerCase()),
+            'regex': ('regex', preprocessing.RegexRemover()),
+            'numbers': ('numbers', preprocessing.NumRemover()),
+            'uncensor': ('uncensor', preprocessing.Replacer(swearing_dict)),
+            'punctuation': ('punctuation', preprocessing.PuncRemover()),
+            'lemmatizer': ('lemmatizer', preprocessing.Lemmatizer()),
+            'manual_lemmatize': ('manual_lemmatize', preprocessing.Replacer(lemmatizer_dict)),
+            'remove': ('remove', preprocessing.WordRemover(dropword_list)),
+            'remove2': ('remove2', preprocessing.WordRemover(dropword_list)),
+            'split_words': ('split_words', preprocessing.WordSplitter()),
+            'sequences': ('sequences', preprocessing.Sequencer(seq_min_length, seq_max_length))
+        }
 
-    incl_blocks = []
-    for bloc in blocks:
-            if bloc[0] in include_steps:
-                incl_blocks.append(bloc)
+    incl_blocks = [blocks[bloc] for bloc in include_steps]
 
     pipe = Pipeline(incl_blocks)
 

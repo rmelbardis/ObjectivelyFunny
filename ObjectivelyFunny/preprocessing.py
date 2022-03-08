@@ -13,7 +13,6 @@ from ObjectivelyFunny.data import create_sequences
 from nltk import download
 download('punkt')
 
-
 class MusicRemover(BaseEstimator, TransformerMixin):
     '''
     Removes fragments in notes list (default ['♫', '♪'])
@@ -182,6 +181,7 @@ class WordRemover(BaseEstimator, TransformerMixin):
             return ' '.join(w for w in word_tokens if not w in _lst)
         X['full_transcript'] = X['full_transcript'].apply(remove_stopw, args=(self.word_list,))
         if self.stopwords:
+            download('stopwords')
             X['full_transcript'] = X['full_transcript'].apply(remove_stopw, args=(stopwords.words('english'),))
         return pd.DataFrame(X)
 
