@@ -18,6 +18,7 @@ pyldavis
 gensim==3.8.3
 spacy
 tensorflow
+gpt-2-simple
 
 # tests/linter
 pytest

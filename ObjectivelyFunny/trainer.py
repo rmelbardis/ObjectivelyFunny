@@ -5,7 +5,7 @@ from google.cloud import storage
 from ObjectivelyFunny import cloud_paths
 from ObjectivelyFunny.model_setup import initialize_model
 from ObjectivelyFunny.pipeline import set_pipeline
-from ObjectivelyFunny.data import get_data, get_small_data, get_X_y_vocab_seqlength
+from ObjectivelyFunny.data import get_data, get_X_y_vocab_seqlength
 
 class Trainer():
 
@@ -31,8 +31,6 @@ class Trainer():
         """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
         HINTS : use joblib library and google-cloud-storage"""
 
-        # saving the trained model to disk is mandatory to then beeing able to upload it to storage
-        # Implement here
         joblib.dump(self.pipeline, f'{self.model_name}.joblib')
         print(f"{self.model_name}.joblib saved locally")
 
@@ -43,7 +41,7 @@ class Trainer():
         print(f"uploaded {self.model_name}.joblib to gcp cloud storage under \n => {cloud_paths.STORAGE_LOCATION}{self.model_name}.joblib")
 
 if __name__ == "__main__":
-    df = get_small_data()
+    df = get_data()
 
     clean_steps = ['music', 'uncensor', 'regex', 'split_words', 'sequences']
     clean_df = set_pipeline(clean_steps).fit_transform(df)

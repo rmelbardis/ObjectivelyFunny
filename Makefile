@@ -67,14 +67,14 @@ RUNTIME_VERSION=2.8
 ##### Package params  - - - - - - - - - - - - - - - - - - -
 
 PACKAGE_NAME=ObjectivelyFunny
-FILENAME=trainer
+FILENAME=gpt2_trainer
 
 ##### Job - - - - - - - - - - - - - - - - - - - - - - - - -
 
 JOB_NAME=comedy_model_training_$(shell date +'%Y%m%d_%H%M%S')
 
 ##### Bucket - - - - - - - -
-BUCKET_TRAINING_FOLDER = 'trainings'
+BUCKET_TRAINING_FOLDER = 'gpt2-trainings'
 
 gcp_submit_training:
 	gcloud ai-platform jobs submit training ${JOB_NAME} \
