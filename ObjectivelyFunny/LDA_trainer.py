@@ -67,18 +67,21 @@ if __name__ == "__main__":
                  '4': 'LDA_10s',
                  '5': 'LDA_20s'}
 
-    year_dict = [list(range(1960, 1990)), list(range(1960, 1990), list(range(1960, 1990), list(range(1960, 1990)]
+    year_list = [list(range(1960, 1990)),
+                 list(range(1990, 2000)),
+                 list(range(2000, 2010)),
+                 list(range(2010, 2020)),
+                 list(range(2020, 2023))]
 
-
-
-    for i in range(1, 4):
-        print(f'Starting run {i}:')
-        df = get_data(gender=[i])
+    for i, decade in enumerate(year_list):
+        print(f'Starting run {i+1}:')
+        df = get_data(year=decade)
         print('Data acquired')
         clean_steps = ['music', 'brackets', 'lowercase', 'regex', 'numbers', 'uncensor', 'remove', 'punctuation',
         'lemmatizer', 'manual_lemmatize', 'remove2']
         clean_df = set_pipeline(clean_steps,
-                        ).fit_transform(df)
+                            dropword_list = word_selections.standard_dropword_list + word_selections.decade_dropword_list
+                            ).fit_transform(df)
         print('Dataframe cleaned')
 
         model = LDATrainer(update_every=5, model_name=name_dict[str(i)])
