@@ -83,7 +83,7 @@ class RegexRemover(BaseEstimator, TransformerMixin):
             lambda x: re.sub('\s[\w-]+( \w+)?:\s', '', str(x)))
         if self.subtitles:
             X['full_transcript'] = X['full_transcript'].apply(
-            lambda x: re.sub('subtitle(s)? by .*', '', str(x)))
+            lambda x: re.sub('(S|s)ubtitle(s)? by .*', '', str(x)))
         if self.netflix:
             X['full_transcript'] = X['full_transcript'].apply(
             lambda x: re.sub('(a)? netflix (original )?(comedy )?(special ?)?', '', str(x)))
@@ -95,7 +95,7 @@ class RegexRemover(BaseEstimator, TransformerMixin):
             lambda x: re.sub('adult humou?r( |\.?)?', '', str(x)))
         if self.air_date:
             X['full_transcript'] = X['full_transcript'].apply(
-            lambda x: re.sub('(original )?air date', '', str(x)))
+            lambda x: re.sub('((O|o)riginal )?(A|a)ir date(:)?', '', str(x)))
         return pd.DataFrame(X)
 
 class LowerCase(BaseEstimator, TransformerMixin):

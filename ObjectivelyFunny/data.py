@@ -6,15 +6,20 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 
-def get_data():
-    """method to get the data from google cloud bucket"""
-    df = pd.read_json(cloud_paths.PATH_TO_DATA)
-    return df
-
-def get_small_data():
+def get_data(gender=None, age=None, artist=None, year=None, show_name=None):
     """method to get data from google cloud, then transform"""
-    df = get_data() # get data
-    df = df[df['artist']=='Bill Burr'].reset_index(drop=True) # create subset of data
+    df = pd.read_json(cloud_paths.PATH_TO_DATA) # get data from Google Cloud
+
+    if gender:
+        df = df[df['artist_gender'].isin(gender)].reset_index(drop=True) # create subset of data
+    if age:
+        df = df[df['age_then'].isin(age)].reset_index(drop=True)
+    if artist:
+        df = df[df['artist'].isin(artist)].reset_index(drop=True)
+    if year:
+        df = df[df['year'].isin(year)].reset_index(drop=True)
+    if show_name:
+        df = df[df['show_name'].isin(show_name)].reset_index(drop=True)
     return df
 
 def create_sequences(word_list, min_length, max_length):
