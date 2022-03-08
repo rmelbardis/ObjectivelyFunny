@@ -12,8 +12,8 @@ from gensim.models.ldamodel import LdaModel
 
 class LDATrainer():
 
-    def __init__(self, update_every=5, model_name='model'):
-        self.model_name = model_name
+    def __init__(self, update_every=5, model_path='model'):
+        self.model_path = model_path
         self.update_every = update_every
 
     def make_words(self, X):
@@ -54,28 +54,28 @@ class LDATrainer():
         '''
         # client = storage.Client()
         # bucket = client.get_bucket(cloud_paths.BUCKET_NAME)
-        # blob = bucket.blob(f'{cloud_paths.STORAGE_LOCATION}{self.model_name}')
+        # blob = bucket.blob(f'{cloud_paths.STORAGE_LOCATION}{self.model_path}')
 
         # Save model to disk.
-        self.model.save(f'LDA_models/{self.model_name}')
+        self.model.save(f'LDA_models/{self.model_path}')
 
 if __name__ == "__main__":
-    # gender topic search
-    name_dict = {'1': 'LDA_pre_1990',
-                 '2': 'LDA_90s',
-                 '3': 'LDA_00s',
-                 '4': 'LDA_10s',
-                 '5': 'LDA_20s'}
+    # input parameters for looping through LDA types
+    name_dict = {'1': 'under_30s',
+                 '2': '30s',
+                 '3': '40s',
+                 '4': '50s',
+                 '5': 'over_60s'}
 
-    year_list = [list(range(1960, 1990)),
-                 list(range(1990, 2000)),
-                 list(range(2000, 2010)),
-                 list(range(2010, 2020)),
-                 list(range(2020, 2023))]
+    age_list = [list(range(10, 30)),
+                 list(range(30, 40)),
+                 list(range(40, 50)),
+                 list(range(50, 60)),
+                 list(range(60, 80))]
 
-    for i, decade in enumerate(year_list):
+    for i, age_range in enumerate(age_list):
         print(f'Starting run {i+1}:')
-        df = get_data(year=decade)
+        df = get_data(age=age_range)
         print('Data acquired')
         clean_steps = ['music', 'brackets', 'lowercase', 'regex', 'numbers', 'uncensor', 'remove', 'punctuation',
         'lemmatizer', 'manual_lemmatize', 'remove2']
@@ -84,7 +84,7 @@ if __name__ == "__main__":
                             ).fit_transform(df)
         print('Dataframe cleaned')
 
-        model = LDATrainer(update_every=5, model_name=name_dict[str(i)])
+        model = LDATrainer(update_every=10, model_path=f'age_groups/{name_dict[str(i+1)]}')
         model.make_words(clean_df).make_grams().make_dictionary()
         print('Gram dictionary made')
         model.run()
