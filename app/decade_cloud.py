@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 
 '''
-# ☁ Compare decade word clouds
+# ☁ Compare word clouds by decades
 ------------------------------
 '''
 
