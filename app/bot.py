@@ -37,14 +37,26 @@ def app():
                 t.write(bot_says)
         with open('joke1.txt', 'w') as t:
             t.write(joke1)
+        with open('joke2.txt', 'w') as t:
+            t.write(joke2)
+        with open('joke3.txt', 'w') as t:
+            t.write(joke3)
 
     if st.button('play', key=1):
         with open('joke1.txt', 'r') as q:
             lines = q.readline()
             ta_tts = gTTS(lines, lang ='en', tld='cn', slow=False)
             ta_tts.save('joke1.mp3')
-        audio_file = open('joke1.mp3', 'rb')
-        audio_test = audio_file.read()
+        with open('joke2.txt', 'r') as q:
+            lines = q.readline()
+            ta_tts = gTTS(lines, lang ='en', tld='cn', slow=False)
+            ta_tts.save('joke2.mp3')
+        with open('joke3.txt', 'r') as q:
+            lines = q.readline()
+            ta_tts = gTTS(lines, lang ='en', tld='cn', slow=False)
+            ta_tts.save('joke3.mp3')
+        audio_file1 = open('joke1.mp3', 'rb')
+        audio_test = audio_file1.read()
         st.audio(audio_test, format='audio/ogg', start_time=0)
 
     #bot_intro = 'Thankyou, oh thankyou, thankyou so much... I am the amazing comedy bot. Hopefully I don\'t swear to much or make an ass of myself'
