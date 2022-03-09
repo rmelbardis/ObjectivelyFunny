@@ -25,6 +25,6 @@ standard_dropword_list = [
 'lot', 'ever', 'still', 'live', 'quite', 'sort', 'actually', 'use', 'tonight', 'find', 'always',
 'time', 'good', 'back', 'show', 'little', 'big', 'day', 'talk', 'start', 'need', 'bad', 'first', 'great',
 'try', 'year', 'word', 'turn', 'bring', 'feel', 'bit', 'ck', 'cke', 'gger', 'ckin', 'groan', 'groaning',
-'high', 'low', 'dingdingde']
+'high', 'low', 'dingdingde', 'audience', 'cheer']
 
 decade_dropword_list = ['fuck', 'fucking', 'shit', 'motherfucker', 'man', 'woman', 'guy']

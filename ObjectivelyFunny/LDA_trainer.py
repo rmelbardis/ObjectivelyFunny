@@ -61,21 +61,13 @@ class LDATrainer():
 
 if __name__ == "__main__":
     # input parameters for looping through LDA types
-    name_dict = {'1': 'under_30s',
-                 '2': '30s',
-                 '3': '40s',
-                 '4': '50s',
-                 '5': 'over_60s'}
+#   name_dict = {'1': '2010s'}
 
-    age_list = [list(range(10, 30)),
-                 list(range(30, 40)),
-                 list(range(40, 50)),
-                 list(range(50, 60)),
-                 list(range(60, 80))]
+#    year_list = [list(range(2010, 2020))]
 
-    for i, age_range in enumerate(age_list):
-        print(f'Starting run {i+1}:')
-        df = get_data(age=age_range)
+    # for i, year_range in enumerate(year_list):
+        print(f'Starting run:')
+        df = get_data(gender=[2])
         print('Data acquired')
         clean_steps = ['music', 'brackets', 'lowercase', 'regex', 'numbers', 'uncensor', 'remove', 'punctuation',
         'lemmatizer', 'manual_lemmatize', 'remove2']
@@ -84,7 +76,7 @@ if __name__ == "__main__":
                             ).fit_transform(df)
         print('Dataframe cleaned')
 
-        model = LDATrainer(update_every=10, model_path=f'age_groups/{name_dict[str(i+1)]}')
+        model = LDATrainer(update_every=20, model_path='genders/LDA_Gentlemen')
         model.make_words(clean_df).make_grams().make_dictionary()
         print('Gram dictionary made')
         model.run()
