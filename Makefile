@@ -52,8 +52,8 @@ pypi:
 #      GOOGLE CLOUD RUNNING / STORAGE
 # ------------------------------------
 
-PROJECT_ID=le-wagon-data-bootcamp-337512
-BUCKET_NAME=wagon-data-805-melbardis
+JAMES_PROJECT_ID=le-wagon-data-342210
+JAMES_BUCKET_NAME= wagon-data-805-farrell
 REGION=europe-west1
 
 set_project:
@@ -87,3 +87,9 @@ gcp_submit_training:
 		--stream-logs \
 		--scale-tier CUSTOM \
 		--master-machine-type n1-standard-16
+
+
+
+#adding credentials manually
+credentials:
+	export GOOGLE_APPLICATION_CREDENTIALS='/home/jfazz9/code/jfazz9/gcp/le-wagon-data-342210-aeff00e67628.json'
