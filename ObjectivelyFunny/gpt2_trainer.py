@@ -1,11 +1,12 @@
 # imports
 from google.cloud import storage
 
-# from ObjectivelyFunny import cloud_paths
+from ObjectivelyFunny import cloud_paths
 from ObjectivelyFunny.pipeline import set_pipeline
 from ObjectivelyFunny.data import get_data
-
 import gpt_2_simple as gpt2
+import shutil
+
 
 class GPT2Trainer():
 
@@ -30,28 +31,31 @@ class GPT2Trainer():
         gpt2.finetune(self.sess,
                       dataset='script.txt',
                       model_name='124M',
-                      steps=10,
+                      steps=1000,
                       restore_from='fresh',
-                      run_name='script_run',
-                      print_every=2,
-                      sample_every=2,
-                      save_every=2)
+                      run_name='one_liners_cloud',
+                      print_every=100,
+                      sample_every=1000,
+                      save_every=250)
         return self
 
-    # def save_model(self):
-    #     """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
-    #     HINTS : use joblib library and google-cloud-storage"""
+#    def save_model(self):
+#        """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
+#       HINTS : use joblib library and google-cloud-storage"""
 
-    #     client = storage.Client()
-    #     bucket = client.bucket(cloud_paths.BUCKET_NAME)
-    #     blob = bucket.blob(f'{cloud_paths.STORAGE_LOCATION}{self.model_name}')
 
 if __name__ == "__main__":
-    df = get_data(gender=[1])
-
+    df = get_data()
+    df= df[df['artist'].isin(['Tim Vine', 'Gary Delaney', 'Stewart Francis', 'Milton Jones', 'Steven Wright', 'Mitch Hedburg'])]
     clean_steps = ['music', 'uncensor', 'regex']
     clean_df = set_pipeline(clean_steps).fit_transform(df)
 
     session = GPT2Trainer(clean_df)
     session.make_script()
     session.run()
+
+    shutil.make_archive('one_liners_cloud', 'zip', 'checkpoint')
+    client = storage.Client()
+    bucket = client.bucket('wagon-data-805-farrell')
+    blob = bucket.blob('one_liners_cloud')
+    blob.upload_from_filename('one_liners_cloud.zip')

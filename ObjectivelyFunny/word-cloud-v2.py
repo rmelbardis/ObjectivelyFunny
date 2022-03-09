@@ -11,19 +11,21 @@ class ComedyWordCloud:
         self.mask = None
         self.option = None
         self.condition = None
+        self.age = None
 
     def color_combo(self):
-        image = f'{self.year}.jpg'
+        if self.year != 1989:
+            image = f'{self.year}.jpg'
+        else:
+            image = f'1980.jpg'
         mask = np.array(Image.open(f'../images/{image}'))
-        color_dict = {'2020.jpg': 'orange', '1960.jpg': 'purple',
+        color_dict = {'2020.jpg': 'orange', '1980.jpg': 'black',
                     '2010.jpg': 'orange', '2000.jpg': 'navy',
-                    '1970.jpg': 'green', '1990.jpg': 'brown',
-                    '1980.jpg': 'black'}
+                    '1990.jpg': 'brown'}
+        # '1960.jpg': 'purple', '1970.jpg': 'green', '1980.jpg': 'black'
 
         if image in color_dict:
             color = color_dict[image]
-            # for k,v in color_dict.items():
-            #     color = image.replace(k, v)
         else:
             color = 'white'
 
@@ -68,14 +70,15 @@ class ComedyWordCloud:
         plt.axis("off")
         if self.year:
             plt.savefig(f"../cloud-images/{self.year}_cloud.png", format="png")
+        elif self.age:
+            plt.savefig(f"../cloud-images/{self.age}_cloud.png", format="png")
         else:
+            print(self.option)
             plt.savefig(f"../cloud-images/{self.option}_{self.condition}_cloud.png", format="png")
-        plt.show();
+        #plt.show();
 
     def get_index(self):
         '''
-        Takes option as a string, with options of: ['artist', 'age', 'gender']
-        Takes condition as string
         Returns a list of index in the dataframe meeting the condition
         '''
         option_dict = {'age': 'age_then', 'gender': 'artist_gender'}
@@ -114,7 +117,7 @@ class ComedyWordCloud:
 
     def plot_decade_cloud(self, year):
         '''
-        Input a decade number as int,
+        Input a decade number as an int,
         plot a word cloud for that decade
         '''
         self.year = year
@@ -122,17 +125,44 @@ class ComedyWordCloud:
             message = 'Please inpute decade as an int.'
             print(message)
             return message
-        if self.year not in [1960, 1970, 1980, 1990, 2000, 2010, 2020]:
+        if self.year not in [1989, 1990, 2000, 2010, 2020]:
             message = 'Decade number not supported. Please choose from 1960-2020.'
             print(message)
             return message
 
-        decade_df = self.df[(self.df.year//10)*10 == self.year]
+        if self.year == 1989:
+            decade_df = self.df[(self.df.year//10)*10 <= self.year]
+
+        else:
+            decade_df = self.df[(self.df.year//10)*10 == self.year]
 
         t = decade_df['full_transcript_clean']
         self.selection = ' '.join(t)
         print(f"Plotting with transcripts of {len(self.selection)} characters...")
         print(f'Here is a word cloud of transcripts from the {self.year}s.')
+        self.plot_cloud()
+
+    def plot_age_cloud(self, age):
+        '''
+        Input a decade number as an int,
+        plot a word cloud for that decade
+        '''
+        self.age= age
+        if not type(self.age) is str:
+            message = 'Please inpute age group as a string.'
+            print(message)
+            return message
+        if self.age not in ['U30', '30', '40', '50', '60', 'O60']:
+            message = 'Age group not supported.'
+            print(message)
+            return message
+
+        age_group_key = pd.read_json('../raw_data/age_group.json')
+
+        t = self.df[age_group_key['age_group']== self.age]['full_transcript_clean']
+        self.selection = ' '.join(t)
+        print(f"Plotting with transcripts of {len(self.selection)} characters...")
+        print(f'Here is a word cloud of transcripts from the age group {self.age}.')
         self.plot_cloud()
 
     def plot_some_cloud(self, option, condition):
@@ -168,5 +198,12 @@ if __name__ == "__main__":
     df = pd.read_json('../raw_data/temp_df_for_testing.json')
     wc = ComedyWordCloud(df)
 
-    wc.plot_decade_cloud(1970)
-    #wc.plot_some_cloud('age', '25')
+    # for num in [1989, 1990, 2000, 2010, 2020]:
+    #     wc.plot_decade_cloud(num)
+    #wc.plot_some_cloud('gender', 'F')
+    for char in ['U30', '30', '40', '50', 'O60']:
+       wc.plot_age_cloud(char)
+
+    # wc.plot_some_cloud('gender', 'F')
+    # wc.plot_some_cloud('gender', 'M')
+    # wc.plot_some_cloud('gender', 'Q')
