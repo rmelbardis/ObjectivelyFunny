@@ -33,7 +33,7 @@ class GPT2Trainer():
                       model_name='124M',
                       steps=1000,
                       restore_from='fresh',
-                      run_name='script_run',
+                      run_name='one_liners_cloud',
                       print_every=100,
                       sample_every=1000,
                       save_every=250)
@@ -46,7 +46,7 @@ class GPT2Trainer():
 
 if __name__ == "__main__":
     df = get_data()
-    df= df[df['artist'].isin(['Tim Vine', 'Jimmy Carr', 'Gary Delaney', 'Stewart Francis', 'Milton Jones', 'Steven Wright', 'Mitch Hedburg'])]
+    df= df[df['artist'].isin(['Tim Vine', 'Gary Delaney', 'Stewart Francis', 'Milton Jones', 'Steven Wright', 'Mitch Hedburg'])]
     clean_steps = ['music', 'uncensor', 'regex']
     clean_df = set_pipeline(clean_steps).fit_transform(df)
 

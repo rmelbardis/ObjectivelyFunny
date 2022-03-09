@@ -26,9 +26,9 @@ heading = st.container()
 heading.title('Objectively Funny')
 heading.header('Welcome to the Amazing Comedy Bot')
 st.markdown("<h1 style='text-align: center; color: green;'>A Message from Bot Dot</h1>", unsafe_allow_html=True)
-# bot_intro = 'Hello! I hope you are having a fine day... I am the amazing comedy bot. Hopefully I don\'t swear to fucking much or make an ass-hole of myself'
-# ta_tts = gTTS(bot_intro, lang ='en', tld='cn', slow=False)
-# ta_tts.save('intro.mp3')
+bot_intro = 'Hello! I hope you are having a fine day... I am the amazing comedy bot. Hopefully I don\'t swear to much or make an ass of myself'
+ta_tts = gTTS(bot_intro, lang ='en', tld='cn', slow=False)
+ta_tts.save('intro.mp3')
 audio_file = open('intro.mp3', 'rb')
 audio_intro = audio_file.read()
 st.audio(audio_intro, format='audio/ogg',start_time=0)
