@@ -90,3 +90,7 @@ gcp_submit_training:
 
 run_api:
 	uvicorn api.fast:app --reload  # load web server with code autoreload
+
+#adding credentials manually
+credentials:
+	export GOOGLE_APPLICATION_CREDENTIALS='/home/jfazz9/code/jfazz9/gcp/le-wagon-data-342210-aeff00e67628.json'
