@@ -46,6 +46,7 @@ class GPT2Trainer():
 
 if __name__ == "__main__":
     df = get_data()
+    df= df[df['artist'].isin(['Tim Vine', 'Jimmy Carr', 'Gary Delaney', 'Stewart Francis', 'Milton Jones', 'Steven Wright', 'Mitch Hedburg'])]
     clean_steps = ['music', 'uncensor', 'regex']
     clean_df = set_pipeline(clean_steps).fit_transform(df)
 
@@ -53,8 +54,8 @@ if __name__ == "__main__":
     session.make_script()
     session.run()
 
-    shutil.make_archive('all_comedians_ton', 'zip', 'checkpoint')
+    shutil.make_archive('one_liners_cloud', 'zip', 'checkpoint')
     client = storage.Client()
     bucket = client.bucket('wagon-data-805-farrell')
-    blob = bucket.blob('all_comedians_ton')
-    blob.upload_from_filename('all_comedians_ton.zip')
+    blob = bucket.blob('one_liners_cloud')
+    blob.upload_from_filename('one_liners_cloud.zip')
