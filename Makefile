@@ -78,7 +78,7 @@ BUCKET_TRAINING_FOLDER = 'gpt2-trainings'
 
 gcp_submit_training:
 	gcloud ai-platform jobs submit training ${JOB_NAME} \
-		--job-dir gs://${BUCKET_NAME}/${BUCKET_TRAINING_FOLDER} \
+		--job-dir gs://${JAMES_BUCKET_NAME}/${BUCKET_TRAINING_FOLDER} \
 		--package-path ${PACKAGE_NAME} \
 		--module-name ${PACKAGE_NAME}.${FILENAME} \
 		--python-version=${PYTHON_VERSION} \
