@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 def app():
     with open('about_style.css') as f:
@@ -7,14 +8,29 @@ def app():
     '''
     ------------------------------
     '''
-    
+
+
     st.write('Welcome to our home page.')
+    gh_url = 'https://github.com/rmelbardis/ObjectivelyFunny'
+    st.write("Our GitHub page [link](%s)" % gh_url)
 
-    st.write('Please message Rei if you have any questions or just scream help.')
+    st.write('Please speak to Rei if you have any questions.')
 
-# https://i.ibb.co/p21Hz91/rob-laughter-WW1js-In-Xgw-M-unsplash.jpg
+    st.header('Data preprocessing')
+    image1 = Image.open('workflow-2-paths.001.jpeg')
+    st.image(image1, width=600)
 
-#     @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
-# html, body, html * {
-#   font-family: 'Roboto', sans-serif;
-# }
+    st.header('Acknowledgments')
+
+    st.subheader('Data sources:')
+
+    url1 = "http://scrapsfromtheloft.com/stand-up-comedy-scripts/"
+    st.write("1. Scraps From the Loft [link](%s)" % url1)
+    url2 = 'https://subsaga.com/bbc/browse/genre/comedy/standup/?page=0'
+    st.write("2. Subsaga [link](%s)" % url2)
+    url3 = 'https://www.themoviedb.org/?language=en-GB'
+    st.write("3. The Movie Database (TMDB) [link](%s)" % url3)
+
+    st.subheader('Packages and APIs:')
+    url4 = 'https://pypi.org/project/tmdbsimple/'
+    st.write("1. tmdbsimple [link](%s)" % url4)
