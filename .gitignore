@@ -6,3 +6,5 @@ raw_data/
 *.csv
 **/__pycache__/
 .env
+checkpoint/
+le-wagon-data-bootcamp-337512-cd373f4b0041.json
