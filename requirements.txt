@@ -6,36 +6,38 @@ wheel>=0.29
 jupyterlab
 
 # data science
-numpy
-pandas
-scikit-learn
-nltk
-matplotlib
-seaborn
-requests
-bs4
-pyldavis
+numpy==1.22.2
+pandas==1.4.1
+scikit-learn==1.0.2
+nltk==3.7
+matplotlib==3.5.1
+seaborn==0.11.2
+requests==2.27.1
+bs4==0.0.1
+pyldavis==3.3.1
 gensim==3.8.3
-spacy
-tensorflow
-gpt-2-simple
+spacy==3.2.3
+tensorflow==2.8.0
+gpt-2-simple==0.8.1
 
 # tests/linter
-pytest
-pylint
-ipdb
+pytest==7.0.1
+pylint==2.12.2
+ipdb==0.13.9
 
 # API
-gcsfs
-google-cloud-storage
-tmdbsimple
-python-dotenv
+gcsfs==2022.2.0
+google-cloud-storage==2.1.0
+tmdbsimple==2.9.1
+python-dotenv==0.19.2
+fastapi==0.75.0
+uvicorn==0.17.5
+
 
 # hosting and front-end
-streamlit
-gtts
+streamlit==1.6.0
+gtts==2.2.3
 
 # utilities
 six>=1.14
-joblib
-wordcloud
+wordcloud==1.8.1

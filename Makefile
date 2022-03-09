@@ -88,7 +88,8 @@ gcp_submit_training:
 		--scale-tier CUSTOM \
 		--master-machine-type n1-standard-16
 
-
+run_api:
+	uvicorn api.fast:app --reload  # load web server with code autoreload
 
 #adding credentials manually
 credentials:
