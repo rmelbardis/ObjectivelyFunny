@@ -1,9 +1,11 @@
 import streamlit as st
 
 def app():
-    with open('style.css') as f:
+    with open('bot_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-        
-    title = st.text_input('Type below', 'Hello hello hello')
+
+    text_input= st.text_input('Type below', 'Hello hello hello')
+    st.write(f'{len(text_input)} characters')
+
     if st.button('play'):
-        st.write('nothing is ready yet')
+        st.write('We are not ready yet')

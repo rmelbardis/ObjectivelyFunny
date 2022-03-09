@@ -1,5 +1,5 @@
 div.css-1wrcr25.egzxvld0{
-  background-image: url(https://i.ibb.co/H4FjXXj/27598206.jpg);
+  background-image: url(https://pngimage.net/wp-content/uploads/2018/06/light-frame-png-1.png);
   background-size: cover;
   border-radius: 10px;
 }
@@ -11,7 +11,7 @@ div.css-1v0mbdj.etr89bj1{
 }
 
 div.css-12oz5g7.egzxvld2{
-  max-width: 80rem;
+  max-width: 60rem;
 }
 
 button{
@@ -23,14 +23,8 @@ label.css-16huue1.effi0qh0{
   font-size: 20px;
 }
 
-h1 {
-  color: white;
-  font-family: monospace;
-  font-size: 35px;
-}
-
 p {
   color: white;
-  font-family: font-family: "Lucida Console", "Courier New", monospace;;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 25px;
-}
+  }

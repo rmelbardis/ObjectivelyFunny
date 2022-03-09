@@ -6,12 +6,8 @@ def app():
     # ☁ Compare word clouds by decades
     ------------------------------
     '''
-
-    # with open('style.css') as f:
-    #     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
     with st.container():
-        st.write('⌛ Which decades do you want to compare')
+        st.write('⌛ Which decades do you want to compare?')
 
         col1, col2 = st.columns(2)
 

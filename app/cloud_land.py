@@ -5,11 +5,7 @@ import pandas as pd
 from multipage import MultiPage
 
 def app():
-    # '''
-    # # ☁ Choose your clouds
-    # ------------------------------
-    # '''
-    with open('style.css') as f:
+    with open('cloud_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
     app = MultiPage()

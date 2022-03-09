@@ -7,9 +7,6 @@ from PIL import Image
 '''
 
 def app():
-    with open('style.css') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
     age_group_dict = {'Under 30': 'U30',
                     '30-39': '30',
                     '40-49': '40',
