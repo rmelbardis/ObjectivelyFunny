@@ -11,8 +11,6 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.title("Objectively Funny")
-    logo = Image.open('images/logo.png')
-    st.image(logo, width=200)
 
 # Add all your applications (pages) here
 app.add_page("About",about.app)
