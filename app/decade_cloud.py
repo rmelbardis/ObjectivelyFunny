@@ -3,7 +3,7 @@ from PIL import Image
 
 def app():
     '''
-    # ☁ Compare word clouds by decades
+    # ☁ Compare hot topics by decades
     ------------------------------
     '''
     with st.container():
@@ -62,7 +62,7 @@ def app():
                 ---------------------------------
             """
             if st.button('Generate'):
-                st.write('Results generated 🎉')
+                st.write('Most popular topics generated 🎉')
                 """
                 ---------------------------------
                 """
