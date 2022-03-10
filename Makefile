@@ -94,3 +94,9 @@ run_api:
 #adding credentials manually
 credentials:
 	export GOOGLE_APPLICATION_CREDENTIALS='/home/jfazz9/code/jfazz9/gcp/le-wagon-data-342210-aeff00e67628.json'
+
+create_slides:
+	jupyter nbconvert notebooks/Rei_presentation_v2.ipynb --to slides --post serve \
+		--no-prompt \
+		--TagRemovePreprocessor.remove_input_tags=remove_input \
+		--TagRemovePreprocessor.remove_all_outputs_tags=remove_output
