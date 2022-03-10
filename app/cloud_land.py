@@ -1,11 +1,9 @@
 import streamlit as st
-from PIL import Image
 import age_cloud, decade_cloud, gender_cloud
-import pandas as pd
 from multipage import MultiPage
 
 def app():
-    with open('cloud_style.css') as f:
+    with open('styles/cloud_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
     app = MultiPage()

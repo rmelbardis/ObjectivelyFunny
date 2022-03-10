@@ -1,17 +1,18 @@
 import streamlit as st
-from PIL import Image
 from multipage import MultiPage
 import about, cloud_land, bot
-
-# Import the required module for text
-# to speech conversion
-#from gtts import gTTS
+from PIL import Image
 
 # Create an instance of the app
 app = MultiPage()
 
 # Title of the main page
-st.title("Objectively Funny")
+col1, col2 = st.columns(2)
+
+with col1:
+    st.title("Objectively Funny")
+    logo = Image.open('images/logo.png')
+    st.image(logo, width=200)
 
 # Add all your applications (pages) here
 app.add_page("About",about.app)

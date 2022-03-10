@@ -33,7 +33,7 @@ def app():
             result2= age_group_dict[option2]
 
 
-        image1 = Image.open(f'../cloud-images/{result1}_cloud.png')
+        image1 = Image.open(f'cloud-images/{result1}_cloud.png')
 
         if option1 == option2:
             st.warning('Change one of your options to compare different age groups')
@@ -45,7 +45,7 @@ def app():
                 st.write('😞 Cloud not generated yet.')
 
         else:
-            image2 = Image.open(f'../cloud-images/{result2}_cloud.png')
+            image2 = Image.open(f'cloud-images/{result2}_cloud.png')
 
             col1, col2 = st.columns(2)
 
@@ -59,9 +59,9 @@ def app():
                 """
                 with col1:
                     st.header(f'People aged {option1}')
-                    st.image(image1, width=550)
+                    st.image(image1, width=500)
                 with col2:
                     st.header(f'People aged {option2}')
-                    st.image(image2, width=550)
+                    st.image(image2, width=500)
             else:
                 st.write('😞 Cloud not generated yet.')
