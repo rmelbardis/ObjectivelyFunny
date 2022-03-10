@@ -1,5 +1,5 @@
 div.css-1wrcr25.egzxvld0{
-  background-image: url(https://pngimage.net/wp-content/uploads/2018/06/light-frame-png-1.png);
+  background-image: url(https://i.imgur.com/oSf2f5k.png);
   background-size: cover;
   border-radius: 10px;
 }
@@ -25,18 +25,9 @@ label.css-16huue1.effi0qh0{
 
 p {
   color: white;
-  font-family: 'IBM Plex Mono', monospace;
   font-size: 25px;
   }
 
-h1 {
-  color: rgb(255, 255, 255);
-}
-
-h2 {
-  color: rgb(255, 255, 255);
-}
-
-h3 {
+h1, h2, h3 {
   color: rgb(255, 255, 255);
 }

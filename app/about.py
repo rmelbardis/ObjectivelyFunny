@@ -56,3 +56,7 @@ def app():
     st.subheader('Special thanks:')
     st.write("- Amanda, Christophe, Julio, Marie, Mohamad, Vinny, Yannis, Yassine")
     st.write("- and all lecturers and TAs at Le Wagon London")
+    url7 = 'https://emoji-maker.com/'
+    st.write("- [Emoji App Studio](%s)" % url7)
+
+    st.markdown("![Alt Text](https://i.imgur.com/aRT5t36.gif)")
