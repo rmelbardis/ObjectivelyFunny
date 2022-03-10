@@ -1,5 +1,5 @@
 div.css-1wrcr25.egzxvld0{
-  background-image: url(https://i.ibb.co/Pgd309n/seat-grey-shadow-001.jpg
+  background-image: url(https://i.imgur.com/GdruX9I.jpg
 );
   background-size: cover;
   border-radius: 10px;
@@ -15,23 +15,7 @@ p {
   font-size: 25px;
 }
 
-h1 {
-  color: rgb(255, 255, 255);
-}
-
-h2 {
-  color: rgb(255, 255, 255);
-}
-
-h3 {
-  color: rgb(255, 255, 255);
-}
-
-ol {
-  color: rgb(255, 255, 255);
-}
-
-ul {
+h1, h2, h3, ol, ul {
   color: rgb(255, 255, 255);
 }
 

@@ -32,6 +32,7 @@ def app():
             st.write('Age group ２:', option2)
             result2= age_group_dict[option2]
 
+        st.write('-----------')
 
         image1 = Image.open(f'word-clouds/{result1}_cloud.png')
 
