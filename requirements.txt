@@ -6,7 +6,7 @@ wheel>=0.29
 jupyterlab
 
 # data science
-numpy==1.22.2
+numpy==1.3.0
 pandas==1.4.1
 scikit-learn==1.0.2
 nltk==3.7
