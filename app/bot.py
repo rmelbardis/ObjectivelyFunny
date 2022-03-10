@@ -69,23 +69,12 @@ def app():
         # playing the audio file
         st.audio(audio_test, format='audio/ogg', start_time=0)
 
-    # section below: text generation only, no audio
-    st.header('A bot that produces scripts from all comedians')
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        image2 = Image.open('images/logo.png')
-        st.image(image2, width=350)
-    with col2:
-        if st.button('Examples', key=3):
-            st.write('A script produced here from all comedians')
-            st.write('generate all comedian scripts')
 
-    st.header('A bot which produces short jokes with a prompt text')
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        image3 = Image.open('images/boy-bot.png')
-        st.image(image3, width=350)
-    with col2:
-        if st.button('Examples', key=4):
-            st.write('A bot which prodcues short jokes with a prompt')
-            st.write('bot generated here')
+    image3 = Image.open('images/boy-bot.png')
+
+    st.write('-----------')
+    cols= st.columns(15)
+    for col in cols:
+        with col:
+            st.image(image3, width=100)
+
