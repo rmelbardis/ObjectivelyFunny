@@ -30,7 +30,7 @@ def app():
     st.write('- 📪 Please speak to Rei if you have any questions.')
 
     st.header('About our data')
-    st.subheader('- Data Overview')
+    st.subheader('Data Overview')
     st.write('- Data Size: 555 individual transcripts')
     st.write('- Average age of comedians: 41')
     st.write("- 84% Male, 15% Female, 1% Gender queer")
