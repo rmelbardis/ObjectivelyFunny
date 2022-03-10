@@ -7,21 +7,26 @@ def app():
     ------------------------------
     '''
     with st.container():
-        col1, col2 = st.columns(2)
+        col1, col2, col3 = st.columns(3)
 
         with col1:
-            image1 = Image.open(f'cloud-images/artist_gender_1_cloud.png')
             st.markdown("<h1 style='text-align: center; font-family: sans-serif; color: white;'>Ladies</h1>",
                     unsafe_allow_html=True)
-            st.image(image1, width=550)
+            for i in range(1, 5):
+                image = Image.open(f'word-clouds/Ladies{i}.png')
+                st.image(image, width=300)
+
 
         with col2:
-            image2 = Image.open(f'cloud-images/artist_gender_2_cloud.png')
             st.markdown("<h1 style='text-align: center; font-family: sans-serif; color: white;'>Gentlemen</h1>",
                     unsafe_allow_html=True)
-            st.image(image2, width=550)
+            for i in range(1, 5):
+                image = Image.open(f'word-clouds/Gentlemen{i}.png')
+                st.image(image, width=300)
 
-        image3 = Image.open(f'cloud-images/artist_gender_3_cloud.png')
-        st.markdown("<h1 style='text-align: center; font-family: sans-serif; color: white;'>Gender Queer</h1>",
+        with col3:
+            st.markdown("<h1 style='text-align: center; font-family: sans-serif; color: white;'>Gender Queer</h1>",
                     unsafe_allow_html=True)
-        st.image(image3, width=550)
+            for i in range(1, 5):
+                image = Image.open(f'word-clouds/Genderqueer{i}.png')
+                st.image(image, width=300)
