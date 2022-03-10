@@ -13,6 +13,29 @@ def app():
     with open('styles/bot_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+    st.header('Disclaimer: ')
+    st.markdown('- *The output is not curated by humans. Stand-up comedy uses\
+        a lot of explicit language and some viewers may find the output offensive.*')
+    st.markdown("- *Uses OpenAI's GPT2 model and finetuned using gpt2-simple\
+        (credit: Max Woolf)*")
+    st.markdown("- Finetuned on 82 scripts, totalling 2.74m characters and 518k\
+        words from the following comedians: 'Aisling Bea', 'Ali Wong',\
+            'Amanda Seales', 'Amy Schumer',  'Andi Osho', 'Angela Barnes',\
+                'Anjelah Johnson', 'Bridget Everett', 'Celia Pacquola',\
+                    'Chelsea Peretti', 'Christina Pazsitzky',\
+                        'Cristela Alonzo', 'Dawn French', 'Desiree Burch',\
+                            'Ellen Degeneres', 'Ellie Taylor', 'Emily Heller',\
+                                'Enissa Amani', 'Felicity Ward', 'Francesca Martinez',\
+                                    'Gina Yashere', 'Hannah Gadsby', 'Holly Walsh',\
+                                        'Iliza Shlesinger', 'Jen Brister', 'Jen Kirkman',\
+                                            'Katherine Ryan', 'Kathleen Madigan', 'Kerry Godliman',\
+                                                'Lisa Lampanelli', 'Lucy Porter', 'Luisa Omielan',\
+                                                    'Maria Bamford', 'Michelle Wolf', 'Miranda Hart',\
+                                                        'Nikki Glaser', 'Roisin Conaty', 'Sara Pascoe',\
+                                                            'Sarah Cooper', 'Sarah Millican', 'Sarah Silverman',\
+                                                                'Shappi Khorsandi', 'Tiffany Haddish', 'Tig Notaro',\
+                                                                    'Urzila Carlson', 'Victoria Wood', 'Wanda Sykes',\
+                                                                        'Whitney Cummings', 'Zoe Lyons'. ")
     st.header('Please welcome to the stage... Robecca Stepford!')
     st.write('She is a bot who produces stand-up comedy lines based on transcripts\
         of female comedians. Just give her a few words to start!')
