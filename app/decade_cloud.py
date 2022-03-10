@@ -57,9 +57,9 @@ def app():
 
         else:
             image5 = Image.open(f'word-clouds/{option2}_cloud_1.png')
-            image6 = Image.open(f'word-clouds/{option1}_cloud_2.png')
-            image7 = Image.open(f'word-clouds/{option1}_cloud_3.png')
-            image8 = Image.open(f'word-clouds/{option1}_cloud_4.png')
+            image6 = Image.open(f'word-clouds/{option2}_cloud_2.png')
+            image7 = Image.open(f'word-clouds/{option2}_cloud_3.png')
+            image8 = Image.open(f'word-clouds/{option2}_cloud_4.png')
 
             col1, col2 = st.columns(2)
             """
