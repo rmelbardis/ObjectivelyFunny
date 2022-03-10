@@ -15,10 +15,8 @@ def app():
             option1 = st.slider('Select the first decade', min_value=1980,
                                 max_value =2020, step=10, key=1)
             if option1==1980:
-                # 1980 here is equivalent to 1989 in the dataframe
-                # which was used to represent before 1990
+                # 1980 here is used here to represent before 1990
                 st.write('Decade １:', 'before 1990')
-                option2=1980
             else:
                 st.write('Decade １:', f'{option1}s')
 
@@ -26,10 +24,8 @@ def app():
             option2 = st.slider('Select the second decade', min_value=1980,
                                 max_value =2020, step=10, key=2)
             if option2==1980:
-                # 1980 here is equivalent to 1989 in the dataframe
-                # which was used to represent before 1990
+                # 1980 here is used here to represent before 1990
                 st.write('Decade ２:', 'before 1990')
-                option2=1980
             else:
                 st.write('Decade ２:', f'{option2}s')
 
