@@ -59,3 +59,4 @@ if __name__ == "__main__":
     bucket = client.bucket('wagon-data-805-farrell')
     blob = bucket.blob('one_liners_cloud')
     blob.upload_from_filename('one_liners_cloud.zip')
+    
