@@ -13,11 +13,12 @@ def app():
     with open('styles/bot_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-    st.write('Type your prompt here')
-    text_input= st.text_input('', 'Welcome')
+    st.header('Please welcome to the stage... Robecca Stepford!')
+    st.write('She is a bot who produces stand-up comedy lines based on transcripts\
+        of female comedians. Just give her a few words to start!')
+    st.write('Type your prompt here, we recommend the start of a sentence:')
+    text_input= st.text_input('', 'When I was a kid')
 
-    st.header('Introducing... Robecca')
-    st.write('A bot that produces a script based upon female comedy')
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -47,7 +48,7 @@ def app():
 
     st.write('-----------')
 
-    st.write('Which joke would you like to hear?')
+    st.write('She can even speak! Which joke would you like to hear?')
     option = st.selectbox(
      '',
      ('1', '2', '3'))
