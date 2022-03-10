@@ -13,7 +13,8 @@ def app():
     with open('styles/bot_style.css') as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-    text_input= st.text_input('Type below', 'Welcome')
+    st.write('Type your prompt here')
+    text_input= st.text_input('', 'Welcome')
 
     st.header('Introducing...Robecca')
     st.write('A bot that produces a script based upon female comedy')
@@ -45,8 +46,9 @@ def app():
 
     st.write('-----------')
 
+    st.write('Which joke would you like to hear?')
     option = st.selectbox(
-     'Which joke would you like to hear?',
+     '',
      ('0', '1', '2'))
 
     if st.button('play', key=1):

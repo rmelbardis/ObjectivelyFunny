@@ -14,16 +14,17 @@ label.css-16huue1.effi0qh0{
   font-family: "Goudy Bookletter 1911", sans-serif;
   }
 
-h2{
-  color:white;
-}
-
 button{
   font-size: 25px;
 }
 
-p{
+label {
+  color: rgb(255, 255, 255);
+}
+
+p {
   font-size: 25px;
+  color: rgb(255, 255, 255);
 }
 
 h1 {
