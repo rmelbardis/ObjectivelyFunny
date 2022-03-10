@@ -16,7 +16,7 @@ def app():
     st.write('Type your prompt here')
     text_input= st.text_input('', 'Welcome')
 
-    st.header('Introducing...Robecca')
+    st.header('Introducing... Robecca')
     st.write('A bot that produces a script based upon female comedy')
 
     col1, col2, col3 = st.columns(3)
@@ -24,10 +24,11 @@ def app():
         image1 = Image.open('images/robecca.png')
         st.image(image1, width=350)
     with col2:
-        if st.button('🔊  Click here to hear from Robecca', key=2):
-            st.write('Generating...')
-            text_output, time_difference = generate_text(text_input)
-            st.write(f'Generated in {time_difference} seconds.')
+        if st.button('Click here to generate', key=2):
+            with st.spinner('Wait for it...'):
+                text_output, message= generate_text(text_input)
+            st.success('Done!')
+            st.markdown(message)
             bot_says, joke1, joke2, joke3 = get_jokes(text_output)
             st.markdown('🎉 Completed')
 
@@ -42,18 +43,18 @@ def app():
         for i, char in enumerate([joke1, joke2, joke3]):
             with open(f'jokes/joke{i+1}.txt', 'r') as d:
                 line = d.readline()
-                st.write(i,':', line)
+                st.write(i+1,':', line)
 
     st.write('-----------')
 
     st.write('Which joke would you like to hear?')
     option = st.selectbox(
      '',
-     ('0', '1', '2'))
+     ('1', '2', '3'))
 
     if st.button('play', key=1):
         # index 0 is the first joke (i.e. joke1)
-        num = int(option)+ 1
+        num = int(option)
 
         with open(f'jokes/joke{num}.txt', 'r') as q:
             # extracting the string from saved file
@@ -69,12 +70,4 @@ def app():
         # playing the audio file
         st.audio(audio_test, format='audio/ogg', start_time=0)
 
-
-    image3 = Image.open('images/boy-bot.png')
-
     st.write('-----------')
-    cols= st.columns(15)
-    for col in cols:
-        with col:
-            st.image(image3, width=100)
-

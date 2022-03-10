@@ -12,8 +12,9 @@ def generate_text(text):
     response = requests.get(API_URL, params=params)
     end_time = time.monotonic()
     time_difference = timedelta(seconds=end_time - start_time).seconds
+    message = f"Finished in {time_difference} seconds"
     a = response.json()
-    return a, time_difference
+    return a, message
 
 def get_jokes(a):
     bot_says = str(a['lines'])
