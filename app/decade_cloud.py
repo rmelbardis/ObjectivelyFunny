@@ -33,7 +33,7 @@ def app():
             else:
                 st.write('Decade ２:', f'{option2}s')
 
-        image1 = Image.open(f'                      cloud-images/{option1}_cloud.png')
+        image1 = Image.open(f'cloud-images/{option1}_cloud.png')
 
         if option1 == option2:
             st.warning('Change one of your options to compare different decades')
