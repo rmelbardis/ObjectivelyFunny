@@ -14,7 +14,7 @@ def app():
     ------------------------------
     '''
 
-    st.header('**Welcome to our our project!**')
+    st.header('**Welcome to our project!**')
     st.markdown("<h1 style='font-size: 18px; color: white;'>We recommend the use of dark mode. You can change the theme in the settings (on your right).</h1>",
                     unsafe_allow_html=True)
 
