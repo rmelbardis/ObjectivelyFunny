@@ -29,14 +29,10 @@ Full list of python packages can be found in the requirements.txt file.
 
 ## Authors
 
-* Reinis Melbardis  
-[@rmelbardis](https://github.com/rmelbardis)
-* Yuqing Wang
-[@yuqingwang98](https://github.com/yuqingwang98)
-* James Farrell  
-[@jfazz9](https://github.com/jfazz9)
-* Catriona Beamish
-[@beamishc](https://github.com/beamishc)
+* Reinis Melbardis [@rmelbardis](https://github.com/rmelbardis)
+* Yuqing Wang [@yuqingwang98](https://github.com/yuqingwang98)
+* James Farrell [@jfazz9](https://github.com/jfazz9)
+* Catriona Beamish [@beamishc](https://github.com/beamishc)
 
 ## Version History
 
