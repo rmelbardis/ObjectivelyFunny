@@ -1,74 +1,48 @@
-# Data analysis
-- Document here the project: ObjectivelyFunny
-- Description: Project Description
-- Data Source:
-- Type of analysis:
+# Objectively Funny
 
-Please document the project the better you can.
+This project was made by 4 Le Wagon Data Science students as our final project.
+We have sourced and processed a wide range of stand-up scripts to analyse comedians and make our own comedy.
 
-# Startup the project
+## Description
 
-The initial setup.
+## Link to Application
 
-Create virtualenv and install the project:
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv ~/venv ; source ~/venv/bin/activate ;\
-    pip install pip -U; pip install -r requirements.txt
-```
+[Heroku/Streamlit App](https://objectively-funny.herokuapp.com/)
 
-Unittest test:
-```bash
-make clean install test
-```
+### Tech Stack
 
-Check for ObjectivelyFunny in gitlab.com/{group}.
-If your project is not set please add it:
+* Python
+* Jupyter Notebook
+* Requests + BeatuifulSoup
+* Pandas
+* NLTK
+* Gensim
+* GPT-2
+* Docker
+* Google Cloud AI Platform
+* Google Cloud Run
+* Heroku
+* Streamlit
 
-- Create a new project on `gitlab.com/{group}/ObjectivelyFunny`
-- Then populate it:
+Full list of python packages can be found in the requirements.txt file.
 
-```bash
-##   e.g. if group is "{group}" and project_name is "ObjectivelyFunny"
-git remote add origin git@github.com:{group}/ObjectivelyFunny.git
-git push -u origin master
-git push -u origin --tags
-```
 
-Functionnal test with a script:
+## Authors
 
-```bash
-cd
-mkdir tmp
-cd tmp
-ObjectivelyFunny-run
-```
+Reinis Melbardis  
+[@rmelbardis](https://github.com/rmelbardis)
+Yuqing Wang
+[@yuqingwang98](https://github.com/yuqingwang98)
+James Farrell  
+[@jfazz9](https://github.com/jfazz9)
+Catriona Beamish
+[@beamishc](https://github.com/beamishc)
 
-# Install
+## Version History
 
-Go to `https://github.com/{group}/ObjectivelyFunny` to see the project, manage issues,
-setup you ssh public key, ...
+* 0.1
+    * Initial Release
 
-Create a python3 virtualenv and activate it:
+## Acknowledgments
 
-```bash
-sudo apt-get install virtualenv python-pip python-dev
-deactivate; virtualenv -ppython3 ~/venv ; source ~/venv/bin/activate
-```
-
-Clone the project and install it:
-
-```bash
-git clone git@github.com:{group}/ObjectivelyFunny.git
-cd ObjectivelyFunny
-pip install -r requirements.txt
-make clean install test                # install and test
-```
-Functionnal test with a script:
-
-```bash
-cd
-mkdir tmp
-cd tmp
-ObjectivelyFunny-run
-```
+* [Le Wagon Data Science Course, London](https://www.lewagon.com/london/data-science-course/full-time)
