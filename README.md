@@ -12,7 +12,7 @@ We have sourced and processed a wide range of stand-up scripts to analyse comedi
 
 ## Link to Application
 
-[Heroku/Streamlit App](https://objectively-funny.herokuapp.com/)
+[Heroku/Streamlit App](https://objectively-funny-webapp.herokuapp.com/)
 
 ## Data
 
