@@ -1,5 +1,5 @@
 div.css-1wrcr25.egzxvld0{
-  background-image: url(https://i.imgur.com/oSf2f5k.png);
+  background-color: #434543;
   background-size: cover;
   border-radius: 10px;
 }
@@ -28,6 +28,25 @@ p {
   font-size: 25px;
   }
 
-h1, h2, h3 {
+h1, h2, h3, ol, ul, label {
   color: rgb(255, 255, 255);
+}
+
+.css-nlntq9 a, .css-v37k9u a, .css-squ92j, .css-k302p2, .css-qrbaxs  {
+  color: white;
+}
+
+st-ae.st-e6.st-e7.st-e8.st-bq.st-e9.st-e0.st-ea.st-eb, st-ae.st-e7.st-e8.st-e9.st-bq.st-ea.st-e1.st-eb.st-ec{
+  color:white;
+}
+.st-bv, .st-fj, .st-bu {
+  background-color: rgb(38, 39, 48);
+}
+
+.st-bp {
+  color: white;
+}
+
+.css-zbg2rx, .st-dd, .st-ej, .css-9t20qt{
+  background: rgb(38, 39, 48);
 }

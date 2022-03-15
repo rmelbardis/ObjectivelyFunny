@@ -18,23 +18,31 @@ button{
   font-size: 25px;
 }
 
-label {
-  color: rgb(255, 255, 255);
-}
-
 p {
   font-size: 25px;
+  color: white;
+}
+
+h1, h2, h3, ol, ul, label {
   color: rgb(255, 255, 255);
 }
 
-h1 {
-  color: rgb(255, 255, 255);
+.css-nlntq9 a, .css-v37k9u a, .css-squ92j, .css-k302p2, .css-qrbaxs  {
+  color: white;
 }
 
-h2 {
-  color: rgb(255, 255, 255);
+st-ae.st-e6.st-e7.st-e8.st-bq.st-e9.st-e0.st-ea.st-eb, st-ae.st-e7.st-e8.st-e9.st-bq.st-ea.st-e1.st-eb.st-ec{
+  color:white;
+}
+.st-bv, .st-fj, .st-bu {
+  background-color: rgb(38, 39, 48);
 }
 
-h3 {
-  color: rgb(255, 255, 255);
+.css-zbg2rx, .st-dd, .st-ej, .css-9t20qt{
+  background: rgb(38, 39, 48);
+}
+
+.st-bp, .st-bq, .st-cc {
+  color: white;
+  background-color: rgb(38, 39, 48);
 }

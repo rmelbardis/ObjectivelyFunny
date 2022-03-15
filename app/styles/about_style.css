@@ -5,6 +5,30 @@ div.css-1wrcr25.egzxvld0{
   border-radius: 10px;
 }
 
+st-ae.st-e6.st-e7.st-e8.st-bq.st-e9.st-e0.st-ea.st-eb, st-ae.st-e7.st-e8.st-e9.st-bq.st-ea.st-e1.st-eb.st-ec{
+  color:white;
+}
+.st-bv, .st-fj, .st-bu {
+  background-color: rgb(38, 39, 48);
+}
+
+.st-ej, .css-9t20qt{
+  background: none;
+}
+
+.st-bp {
+  color: white;
+}
+
+.css-zbg2rx, .st-dd, .st-ek{
+  background: rgb(38, 39, 48);
+}
+
+.css-qrbaxs {
+  font-size: 14px;
+  color: white;
+}
+
 div.css-12oz5g7.egzxvld2{
   max-width: 60rem;
 }
@@ -15,14 +39,14 @@ p {
   font-size: 25px;
 }
 
-h1, h2, h3, ol, ul {
+h1, h2, h3, ol, ul, label {
   color: rgb(255, 255, 255);
 }
 
-.css-nlntq9 a {
-  color: rgb(255, 255, 255);
+.css-nlntq9 a, .css-v37k9u a, .css-squ92j, .css-k302p2  {
+  color: white;
 }
 
-.css-v37k9u a {
-  color: rgb(255, 255, 255);
+.css-v37k9u li {
+  font-size: 1.5rem;
 }
