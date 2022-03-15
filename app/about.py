@@ -36,22 +36,26 @@ def app():
 
     st.header('Acknowledgments')
 
-    st.subheader('Data sources:')
+    col1, col2 = st.columns(2)
 
-    url1 = "http://scrapsfromtheloft.com/stand-up-comedy-scripts/"
-    st.write("- [Scraps From the Loft](%s)" % url1)
-    url2 = 'https://subsaga.com/bbc/browse/genre/comedy/standup/?page=0'
-    st.write("- [Subsaga](%s)" % url2)
-    url3 = 'https://www.themoviedb.org/?language=en-GB'
-    st.write("- [The Movie Database (TMDB)](%s)" % url3)
+    with col1:
+        st.subheader('Data sources:')
 
-    st.subheader('Packages and APIs:')
-    url6 = 'https://github.com/minimaxir/gpt-2-simple'
-    st.write('- [gpt-2-simple](%s)' % url6)
-    url5 = 'https://radimrehurek.com/gensim/'
-    st.write('- [Gensim](%s)' % url5)
-    url4 = 'https://pypi.org/project/tmdbsimple/'
-    st.write("- [tmdbsimple](%s)" % url4)
+        url1 = "http://scrapsfromtheloft.com/stand-up-comedy-scripts/"
+        st.write("- [Scraps From the Loft](%s)" % url1)
+        url2 = 'https://subsaga.com/bbc/browse/genre/comedy/standup/?page=0'
+        st.write("- [Subsaga](%s)" % url2)
+        url3 = 'https://www.themoviedb.org/?language=en-GB'
+        st.write("- [The Movie Database (TMDB)](%s)" % url3)
+
+    with col2:
+        st.subheader('Packages and APIs:')
+        url6 = 'https://github.com/minimaxir/gpt-2-simple'
+        st.write('- [gpt-2-simple](%s)' % url6)
+        url5 = 'https://radimrehurek.com/gensim/'
+        st.write('- [Gensim](%s)' % url5)
+        url4 = 'https://pypi.org/project/tmdbsimple/'
+        st.write("- [tmdbsimple](%s)" % url4)
 
     st.subheader('Special thanks:')
     st.write("- Amanda, Christophe, Julio, Marie, Mohamad, Vinny, Yannis, Yassine")
