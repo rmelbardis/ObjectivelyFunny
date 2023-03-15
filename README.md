@@ -12,8 +12,10 @@ We have sourced and processed a wide range of stand-up scripts to analyse comedi
 
 ## Link to Application
 
-[Heroku/Streamlit App](https://objectively-funny-v2.herokuapp.com/)
-
+<!-- [Heroku/Streamlit App](https://objectively-funny-v2.herokuapp.com/)
+ -->
+ [Streamlit App](https://objectively-funny.streamlit.app/)
+ 
 ## Data
 
 ### Sources
@@ -48,7 +50,7 @@ Full list of python packages can be found in the requirements.txt file.
 ## Authors
 
 * Reinis Melbardis [@rmelbardis](https://github.com/rmelbardis)
-* Yuqing Wang [@yuqingwang98](https://github.com/yuqingwang98)
+* Yuqing Wang [@yuqingwwang](https://github.com/yuqingwwang)
 * James Farrell [@jfazz9](https://github.com/jfazz9)
 * Catriona Beamish [@beamishc](https://github.com/beamishc)
 
